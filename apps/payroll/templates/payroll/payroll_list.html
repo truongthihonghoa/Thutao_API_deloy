@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Quản lý lương - {{ block.super }}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'payroll/css/payroll_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/popup_confirm_cancel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/popup_confirm_delete.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/popup_success.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="payroll-page">
+    <div class="payroll-toolbar">
+        <div class="payroll-filter-row">
+            <label class="payroll-month-box">
+                <input type="month" value="2026-01">
+            </label>
+            <label class="payroll-search-box">
+                <img src="{% static 'images/search_icon.png' %}" alt="Tìm kiếm">
+                <input type="text" placeholder="Tìm kiếm">
+            </label>
+            <button type="button" class="payroll-btn payroll-btn-primary">Tìm kiếm</button>
+            <button type="button" class="payroll-btn payroll-btn-primary" data-open-modal="payroll-calc-modal">Tính lương</button>
+            <a class="payroll-btn payroll-btn-primary" href="{% url 'payroll_export' %}">In/Xuất</a>
+        </div>
+        <div class="payroll-status-tabs">
+            <button type="button" class="payroll-status-tab is-active">Đang chờ duyệt</button>
+            <button type="button" class="payroll-status-tab">Đã duyệt</button>
+            <button type="button" class="payroll-status-tab">Đã từ chối</button>
+        </div>
+    </div>
+
+    <div class="payroll-table-card">
+        <table class="payroll-table">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Mã lương</th>
+                    <th>Mã NV</th>
+                    <th>Tên nhân viên</th>
+                    <th>Tháng</th>
+                    <th>Tổng lương</th>
+                    <th>Thưởng</th>
+                    <th>Phạt</th>
+                    <th>Thực lĩnh</th>
+                    <th>Hành động</th>
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in payroll_rows %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ row.ma_luong }}</td>
+                    <td>{{ row.ma_nv }}</td>
+                    <td>{{ row.ten_nv }}</td>
+                    <td>{{ row.thang }}</td>
+                    <td>{{ row.tong_luong }}</td>
+                    <td>{{ row.thuong }}</td>
+                    <td>{{ row.phat }}</td>
+                    <td>{{ row.thuc_linh }}</td>
+                    <td>
+                        <button
+                            type="button"
+                            class="payroll-icon-btn"
+                            data-open-modal="payroll-calc-detail-modal"
+                            data-ma-luong="{{ row.ma_luong }}"
+                            data-ma-nv="{{ row.ma_nv }}"
+                            data-ten-nv="{{ row.ten_nv }}"
+                            data-thang="{{ row.thang }}"
+                            data-tong="{{ row.tong_luong }}"
+                            data-thuong="{{ row.thuong }}"
+                            data-phat="{{ row.phat }}"
+                            data-thuc-linh="{{ row.thuc_linh }}"
+                        >
+                            <img src="{% static 'images/edit_icon.png' %}" alt="Chi tiết">
+                        </button>
+                    </td>
+                    <td>
+                        <span class="payroll-status is-{{ row.trang_thai_key }}">{{ row.trang_thai }}</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="payroll-modal-overlay" id="payroll-calc-modal">
+    <div class="payroll-modal payroll-modal-medium">
+        <div class="payroll-modal-header">
+            <h2>Tính lương</h2>
+            <button type="button" class="payroll-modal-close" data-close-modal="payroll-calc-modal">&times;</button>
+        </div>
+        <div class="payroll-modal-body">
+            <div class="payroll-calc-month">
+                <label>Chọn tháng</label>
+                <input type="month" value="2026-01">
+            </div>
+            <div class="payroll-employee-card">
+                <table class="payroll-employee-table">
+                    <thead>
+                        <tr>
+                            <th>Mã NV</th>
+                            <th>Họ tên</th>
+                            <th>Chọn</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for employee in employees %}
+                        <tr>
+                            <td>{{ employee.ma_nv }}</td>
+                            <td>{{ employee.ten_nv }}</td>
+                            <td><input type="checkbox" {% if forloop.counter <= 3 %}checked{% endif %}></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="payroll-modal-footer">
+            <button type="button" class="payroll-btn payroll-btn-light js-open-cancel" data-close-modal="payroll-calc-modal">Hủy</button>
+            <button type="button" class="payroll-btn payroll-btn-primary" id="open-calc-detail-btn">Tính lương</button>
+        </div>
+    </div>
+</div>
+
+<div class="payroll-modal-overlay" id="payroll-calc-detail-modal">
+    <div class="payroll-modal payroll-modal-large">
+        <div class="payroll-modal-title-row">
+            <h2>Tính lương</h2>
+            <div id="calc-detail-ma-luong" class="payroll-modal-sub">Mã lương: ML0001</div>
+        </div>
+        <div class="payroll-summary-row">
+            <strong id="calc-detail-ma-nv">Mã NV: NV0001 - Nguyễn Văn An</strong>
+            <strong id="calc-detail-thang">Tháng: 01/2026</strong>
+        </div>
+        <div class="payroll-detail-grid">
+            <label>
+                <span>Lương cơ bản</span>
+                <input id="calc-detail-luong-co-ban" type="text" value="8,000,000 VNĐ">
+            </label>
+            <label>
+                <span>Lương theo giờ</span>
+                <input id="calc-detail-luong-gio" type="text" value="0 VNĐ">
+            </label>
+            <label>
+                <span>Số ca làm</span>
+                <input id="calc-detail-so-ca" type="text" value="66">
+            </label>
+            <label>
+                <span>Số giờ làm</span>
+                <input id="calc-detail-so-gio" type="text" value="0">
+            </label>
+            <label>
+                <span>Thưởng</span>
+                <input id="calc-detail-thuong" type="text" value="2,000,000 VNĐ">
+            </label>
+            <label>
+                <span>Phạt</span>
+                <input id="calc-detail-phat" type="text" value="100,000 VNĐ">
+            </label>
+        </div>
+        <div class="payroll-total-box">
+            <span>TỔNG LƯƠNG</span>
+            <strong id="calc-detail-thuc-linh">9,900,000 VND</strong>
+        </div>
+        <div class="payroll-modal-footer">
+            <button type="button" class="payroll-btn payroll-btn-primary js-show-success" data-close-modal="payroll-calc-detail-modal">Lưu</button>
+            <button type="button" class="payroll-btn payroll-btn-light js-open-cancel" data-close-modal="payroll-calc-detail-modal">Hủy</button>
+        </div>
+    </div>
+</div>
+
+{% include 'partials/popup_confirm_cancel.html' %}
+{% include 'partials/popup_confirm_delete.html' with delete_popup_title='Xác nhận thao tác' delete_popup_message_1='Bạn có chắc chắn muốn thực hiện thao tác này?' delete_popup_message_2_before='Dữ liệu lương sẽ được cập nhật sang trạng thái' delete_popup_highlight='"Đã duyệt".' %}
+{% include 'partials/popup_success.html' %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'payroll/js/payroll_list.js' %}"></script>
+{% endblock %}
