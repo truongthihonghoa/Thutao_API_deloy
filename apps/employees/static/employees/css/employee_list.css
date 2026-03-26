@@ -48,6 +48,11 @@
     font-size: 20px; /* Adjusted font size */
     padding: 0 25px;
     text-decoration: none; /* Remove underline from link */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.search-action-btn:hover, .add-btn:hover {
+    background-color: #0000FF; /* New hover color */
 }
 
 .search-action-btn img, .add-btn img {
@@ -101,4 +106,9 @@
 .action-icon img {
     width: 24px;
     height: 24px;
+    transition: transform 0.2s;
+}
+
+.action-icon:hover img {
+    transform: scale(1.2); /* Add a little zoom effect on hover */
 }

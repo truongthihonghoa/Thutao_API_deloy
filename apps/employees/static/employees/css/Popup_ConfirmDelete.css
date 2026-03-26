@@ -72,38 +72,38 @@
     font-weight: 700;
 }
 
-.confirm-delete-popup-box .no-btn {
-  all: unset;
-  box-sizing: border-box;
-  position: absolute;
-  top: 190px;
-  left: 72px;
-  width: 130px;
-  height: 40px;
-  background: #E0E0E0;
-  border-radius: 6px;
-  cursor: pointer;
-  text-align: center;
-  color: #666666;
-  font-size: 24px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
-}
-
+.confirm-delete-popup-box .no-btn,
 .confirm-delete-popup-box .yes-btn {
   all: unset;
   box-sizing: border-box;
   position: absolute;
-  top: 191px;
-  right: 61px;
-  width: 146px;
+  top: 190px;
   height: 40px;
-  background: #174D17;
   border-radius: 6px;
   cursor: pointer;
   text-align: center;
-  color: white;
-  font-size: 24px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
+  font-size: 24px;
+  transition: background-color 0.3s;
+}
+
+.confirm-delete-popup-box .no-btn {
+  left: 72px;
+  width: 130px;
+  background: #E0E0E0;
+  color: #666666;
+}
+
+.confirm-delete-popup-box .yes-btn {
+  right: 61px;
+  width: 146px;
+  background: #174D17;
+  color: white;
+}
+
+.confirm-delete-popup-box .no-btn:hover,
+.confirm-delete-popup-box .yes-btn:hover {
+    background-color: #0000FF;
+    color: #ffffff;
 }

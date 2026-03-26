@@ -1,0 +1,270 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Lịch Làm Việc - {{ block.super }}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'schedules/css/schedule_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/popup_confirm_delete.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/popup_confirm_cancel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/popup_success.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/popup_error.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="schedule-page">
+    <div class="schedule-toolbar">
+        <div class="schedule-filters">
+            <button type="button" class="schedule-filter is-active">Tất cả</button>
+            <button type="button" class="schedule-filter">Tuần</button>
+            <button type="button" class="schedule-filter">Tháng</button>
+        </div>
+        <div class="schedule-toolbar-actions">
+            <button type="button" class="schedule-secondary-btn" data-open-modal="send-confirm-modal">Gửi Thông Báo</button>
+            <button type="button" class="schedule-add-btn" data-open-modal="add-schedule-modal">+ Thêm</button>
+        </div>
+    </div>
+
+    <div class="schedule-table-card">
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th class="checkbox-col">
+                        <label class="table-checkbox">
+                            <input type="checkbox" id="select-all-schedules">
+                            <span></span>
+                        </label>
+                    </th>
+                    <th>Mã Lịch Làm</th>
+                    <th>Ngày Làm</th>
+                    <th>Khung Giờ Ca Làm</th>
+                    <th>Trạng Thái</th>
+                    <th>Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for schedule in schedules %}
+                <tr>
+                    <td class="checkbox-col">
+                        <label class="table-checkbox">
+                            <input type="checkbox" class="schedule-row-checkbox" value="{{ schedule.ma_llv }}">
+                            <span></span>
+                        </label>
+                    </td>
+                    <td>{{ schedule.ma_llv }}</td>
+                    <td>{{ schedule.ngay_lam }}</td>
+                    <td>{{ schedule.khung_gio }}</td>
+                    <td>
+                        <span class="status-pill {% if schedule.trang_thai_key == 'sent' %}is-sent{% else %}is-draft{% endif %}">
+                            {{ schedule.trang_thai }}
+                        </span>
+                    </td>
+                    <td class="schedule-actions">
+                        <button
+                            type="button"
+                            class="schedule-detail-btn"
+                            data-open-modal="view-schedule-modal"
+                            data-schedule-id="{{ schedule.ma_llv }}"
+                            data-schedule-date="{{ schedule.ngay_lam }}"
+                            data-schedule-shift="{{ schedule.khung_gio }}"
+                            data-schedule-status="{{ schedule.trang_thai }}"
+                            data-schedule-employees='[{% for item in schedule.nhan_vien %}{"code":"{{ item.ma_nv }}","name":"{{ item.ten_nv }}","position":"{{ item.vi_tri }}"}{% if not forloop.last %},{% endif %}{% endfor %}]'
+                        >
+                            Xem Chi Tiết
+                        </button>
+                        <button
+                            type="button"
+                            class="schedule-icon-btn"
+                            data-open-modal="edit-schedule-modal"
+                            data-schedule-id="{{ schedule.ma_llv }}"
+                            data-schedule-date="{{ schedule.ngay_lam }}"
+                            data-schedule-shift="{{ schedule.khung_gio }}"
+                            data-schedule-status="{{ schedule.trang_thai }}"
+                            data-schedule-employees='[{% for item in schedule.nhan_vien %}{"code":"{{ item.ma_nv }}","name":"{{ item.ten_nv }}","position":"{{ item.vi_tri }}"}{% if not forloop.last %},{% endif %}{% endfor %}]'
+                        >
+                            <img src="{% static 'images/edit_icon.png' %}" alt="Sửa">
+                        </button>
+                        <button
+                            type="button"
+                            class="schedule-icon-btn"
+                            data-open-modal="confirm-delete-popup"
+                            data-delete-id="{{ schedule.ma_llv }}"
+                        >
+                            <img src="{% static 'images/delete_icon.png' %}" alt="Xóa">
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="schedule-modal-overlay" id="add-schedule-modal">
+    <div class="schedule-modal schedule-form-modal">
+        <div class="schedule-modal-header">
+            <h2>Thêm lịch làm việc</h2>
+            <button type="button" class="schedule-modal-close" data-close-modal="add-schedule-modal">&times;</button>
+        </div>
+        <div class="schedule-modal-body">
+            <section class="schedule-section">
+                <h3>Thông tin ca làm</h3>
+                <div class="schedule-form-grid">
+                    <label class="schedule-field">
+                        <span>Ngày Làm</span>
+                        <input type="date" value="2026-02-01">
+                    </label>
+                    <label class="schedule-field">
+                        <span>Khung Giờ Ca Làm</span>
+                        <select>
+                            {% for option in shift_options %}
+                            <option>{{ option }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                </div>
+            </section>
+            <section class="schedule-section">
+                <h3>Thông tin nhân viên</h3>
+                <div class="schedule-employee-table">
+                    <div class="schedule-employee-head editable-mode">
+                        <span>Chọn</span>
+                        <span>Mã Nhân Viên</span>
+                        <span>Tên Nhân Viên</span>
+                        <span>Vị Trí Việc Làm</span>
+                    </div>
+                    <div class="schedule-employee-body">
+                        {% for employee in employee_options %}
+                        <div class="schedule-employee-item editable-item">
+                            <label class="table-checkbox">
+                                <input type="checkbox" {% if forloop.counter <= 3 %}checked{% endif %}>
+                                <span></span>
+                            </label>
+                            <span>{{ employee.ma_nv }}</span>
+                            <span>{{ employee.ten_nv }}</span>
+                            <select>
+                                <option selected>{{ employee.vi_tri }}</option>
+                                <option>Pha chế</option>
+                                <option>Phục vụ</option>
+                                <option>Thu ngân</option>
+                                <option>Giữ xe</option>
+                            </select>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="schedule-modal-footer">
+            <button type="button" class="schedule-outline-btn js-open-cancel" data-close-modal="add-schedule-modal">Hủy</button>
+            <button type="button" class="schedule-primary-btn js-show-success" data-close-modal="add-schedule-modal">Lưu</button>
+        </div>
+    </div>
+</div>
+
+<div class="schedule-modal-overlay" id="edit-schedule-modal">
+    <div class="schedule-modal schedule-form-modal">
+        <div class="schedule-modal-header">
+            <h2>Chỉnh sửa lịch làm việc</h2>
+            <button type="button" class="schedule-modal-close" data-close-modal="edit-schedule-modal">&times;</button>
+        </div>
+        <div class="schedule-modal-body">
+            <section class="schedule-section">
+                <h3>Thông tin ca làm</h3>
+                <div class="schedule-form-grid">
+                    <label class="schedule-field">
+                        <span>Ngày Làm</span>
+                        <input id="edit-schedule-date" type="text" value="01/02/2026">
+                    </label>
+                    <label class="schedule-field">
+                        <span>Khung Giờ Ca Làm</span>
+                        <input id="edit-schedule-shift" type="text" value="7:00 - 11:00">
+                    </label>
+                </div>
+            </section>
+            <section class="schedule-section">
+                <div class="schedule-section-heading">
+                    <h3>Thông tin nhân viên</h3>
+                    <span id="edit-schedule-id" class="schedule-id-chip">LL001</span>
+                </div>
+                <div class="schedule-employee-table">
+                    <div class="schedule-employee-head">
+                        <span>Mã Nhân Viên</span>
+                        <span>Tên Nhân Viên</span>
+                        <span>Vị Trí Việc Làm</span>
+                    </div>
+                    <div id="edit-employee-list" class="schedule-employee-body"></div>
+                </div>
+            </section>
+        </div>
+        <div class="schedule-modal-footer">
+            <button type="button" class="schedule-outline-btn js-open-cancel" data-close-modal="edit-schedule-modal">Hủy</button>
+            <button type="button" class="schedule-primary-btn js-show-success" data-close-modal="edit-schedule-modal">Lưu</button>
+        </div>
+    </div>
+</div>
+
+<div class="schedule-modal-overlay" id="view-schedule-modal">
+    <div class="schedule-modal schedule-view-modal">
+        <div class="schedule-modal-header">
+            <h2>Xem lịch làm việc</h2>
+            <button type="button" class="schedule-modal-close" data-close-modal="view-schedule-modal">&times;</button>
+        </div>
+        <div class="schedule-modal-body">
+            <section class="schedule-section">
+                <h3>Thông tin ca làm</h3>
+                <div class="schedule-form-grid">
+                    <div class="schedule-readonly-field">
+                        <span>Ngày Làm</span>
+                        <strong id="view-schedule-date">01/02/2026</strong>
+                    </div>
+                    <div class="schedule-readonly-field">
+                        <span>Khung Giờ Ca Làm</span>
+                        <strong id="view-schedule-shift">7:00 - 11:00</strong>
+                    </div>
+                </div>
+            </section>
+            <section class="schedule-section">
+                <div class="schedule-section-heading">
+                    <h3>Thông tin nhân viên</h3>
+                    <span id="view-schedule-status" class="status-pill is-sent">Đã Gửi</span>
+                </div>
+                <div class="schedule-employee-table">
+                    <div class="schedule-employee-head view-mode">
+                        <span>Mã Nhân Viên</span>
+                        <span>Tên Nhân Viên</span>
+                        <span>Vị Trí Việc Làm</span>
+                    </div>
+                    <div id="view-employee-list" class="schedule-employee-body"></div>
+                </div>
+            </section>
+        </div>
+        <div class="schedule-modal-footer">
+            <button type="button" class="schedule-primary-btn schedule-full-btn" data-close-modal="view-schedule-modal">Xác Nhận</button>
+        </div>
+    </div>
+</div>
+
+<div class="schedule-modal-overlay" id="send-confirm-modal">
+    <div class="schedule-modal schedule-confirm-modal">
+        <div class="schedule-confirm-icon">
+            <img src="{% static 'images/confirm_icon.png' %}" alt="Xác nhận">
+        </div>
+        <h3>Xác nhận gửi thông báo</h3>
+        <p>Bạn có chắc chắn muốn gửi thông báo lịch làm việc đến toàn bộ nhân viên đã chọn không?</p>
+        <div class="schedule-modal-footer">
+            <button type="button" class="schedule-outline-btn" data-close-modal="send-confirm-modal">Hủy</button>
+            <button type="button" class="schedule-primary-btn js-show-success" data-close-modal="send-confirm-modal">Gửi thông báo</button>
+        </div>
+    </div>
+</div>
+
+{% include 'partials/popup_confirm_cancel.html' %}
+{% include 'partials/popup_confirm_delete.html' with delete_popup_title='Xác nhận xóa lịch làm việc' delete_popup_message_1='Bạn có chắc chắn muốn xóa lịch làm việc này?' delete_popup_message_2_before='Lịch làm việc được chọn sẽ được chuyển sang trạng thái' delete_popup_highlight='"Đã xóa".' %}
+{% include 'partials/popup_success.html' %}
+{% include 'partials/popup_error.html' %}
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'schedules/js/schedule_list.js' %}"></script>
+{% endblock %}

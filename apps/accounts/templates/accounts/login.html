@@ -6,30 +6,14 @@
     <meta charset="utf-8" />
     <title>Đăng nhập - GE CAFE HRM</title>
 
-    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="{% static 'accounts/css/globals.css' %}" />
     <link rel="stylesheet" href="{% static 'accounts/css/login.css' %}" />
-
-    <!-- Popup Stylesheets -->
     <link rel="stylesheet" href="{% static 'accounts/css/Popup_ForgotPassword.css' %}" />
-    <link rel="stylesheet" href="{% static 'accounts/css/Popup_ConfirmCancel.css' %}" />
-    <link rel="stylesheet" href="{% static 'accounts/css/Popup_Notification.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/components/popup_confirm_cancel.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/components/popup_success.css' %}" />
 
     <style>
-        /* Override style.css to correctly align hint/error text */
-        .background-shadow .p,
-        .background-shadow .error-message {
-            display: block;
-            justify-content: flex-start;
-            text-align: left;
-            width: auto;
-            margin-left: 106px;
-            margin-right: 106px;
-            align-self: stretch;
-            font-family: "Montserrat-Regular", Helvetica, sans-serif;
-            font-size: 13px;
-            margin-top: 13px;
-        }
+        .background-shadow .p, .background-shadow .error-message { display: block; justify-content: flex-start; text-align: left; width: auto; margin-left: 106px; margin-right: 106px; align-self: stretch; font-family: "Montserrat-Regular", Helvetica, sans-serif; font-size: 13px; margin-top: 13px; }
         .error-message { color: #721c24; }
         .p { color: #555555; }
         .input, .container-wrapper { padding: 0; display: flex; align-items: center; }
@@ -45,8 +29,7 @@
   <body>
     <div class="background-shadow">
       <img class="image" src="{% static 'accounts/img/giao_dien.png' %}" alt="Background Image" />
-      <form class="frame" method="POST" action="{% url 'login' %}">
-        {% csrf_token %}
+      <div class="frame">
         <div class="container">
           <div class="heading"><p class="text-wrapper">Hệ thống Quản lý Nhân sự</p></div>
           <div class="paragraph">
@@ -68,32 +51,22 @@
             </div>
         </div>
 
-        {% if messages %}
-            {% for message in messages %}
-                {% if message.tags == 'error' %}
-                    <p class="error-message">{{ message }}</p>
-                {% endif %}
-            {% endfor %}
-        {% else %}
-            <p class="p">Mật khẩu phải có ít nhất 8 ký tự bao gồm chữ và số.</p>
-        {% endif %}
+        <p class="p">Mật khẩu phải có ít nhất 8 ký tự bao gồm chữ và số.</p>
 
-        <button type="submit" class="ng-nhp">
+        <button type="button" id="login-btn" class="ng-nhp" data-dashboard-url="{% url 'dashboard' %}">
             <span class="text-wrapper-2">Đăng Nhập</span>
         </button>
 
         <div class="link-qu-n-m-t-kh-u-wrapper">
             <a href="#" class="link-qu-n-m-t-kh-u" id="forgot-password-link">Quên mật khẩu?</a>
         </div>
-      </form>
+      </div>
     </div>
 
-    <!-- Included Popups -->
     {% include 'accounts/partials/Popup_ForgotPassword.html' %}
-    {% include 'accounts/partials/Popup_ConfirmCancel.html' %}
-    {% include 'accounts/partials/Popup_Notification.html' %}
+    {% include 'partials/popup_confirm_cancel.html' %}
+    {% include 'partials/popup_success.html' %}
 
-    <!-- Main JavaScript for popups -->
     <script src="{% static 'accounts/js/login.js' %}" defer></script>
   </body>
 </html>

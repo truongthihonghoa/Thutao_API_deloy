@@ -77,10 +77,11 @@ body {
     justify-content: center;
     position: relative;
     text-align: center;
+    transition: background-color 0.3s; /* Smooth transition */
 }
 
 .nav-item:hover {
-    background-color: #1a5a1a;
+    background-color: #0000FF; /* New hover color */
 }
 
 /* Dropdown Styles */
@@ -105,17 +106,19 @@ body {
 }
 
 .dropdown-content a {
-    color: black;
+    color: #4B2E1F; /* New text color */
     padding: 12px 16px;
     text-decoration: none;
     display: block;
     font-size: 18px;
     font-family: "Montserrat-SemiBold", Helvetica, sans-serif;
     text-align: left;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
 }
 
 .dropdown-content a:hover {
-    background-color: #f1f1f1;
+    background-color: #0000FF; /* New hover color */
+    color: #ffffff; /* Change text to white on hover */
 }
 
 .dropdown:hover .dropdown-content {

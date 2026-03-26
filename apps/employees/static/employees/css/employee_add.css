@@ -140,4 +140,9 @@
     font-family: "Montserrat-Bold", Helvetica, sans-serif;
     font-size: 24px;
     cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.save-btn:hover {
+    background-color: #0000FF; /* New hover color */
 }

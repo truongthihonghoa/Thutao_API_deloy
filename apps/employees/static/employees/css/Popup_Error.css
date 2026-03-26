@@ -1,4 +1,4 @@
-.duplicate-error-popup-overlay {
+.error-popup-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -8,10 +8,10 @@
     display: none; /* Hidden by default */
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 2000;
 }
 
-.duplicate-error-popup-box {
+.error-popup-box {
   position: relative;
   width: 500px;
   height: 250px;
@@ -20,7 +20,7 @@
   box-shadow: 0px 18px 40px rgba(0, 0, 0, 0.08);
 }
 
-.duplicate-error-popup-box .error-icon {
+.error-popup-box .error-icon {
   position: absolute;
   top: 11px;
   left: 220px;
@@ -28,7 +28,7 @@
   height: 70px;
 }
 
-.duplicate-error-popup-box .heading {
+.error-popup-box .heading {
   width: 420px;
   left: 40px;
   top: 85px;
@@ -40,66 +40,66 @@
   font-weight: 600;
 }
 
-.duplicate-error-popup-box .message-line1 {
+.error-popup-box .message-line1 {
   left: 50%;
   transform: translateX(-50%);
-  top: 114px;
+  top: 118px;
   position: absolute;
+  width: 100%;
   text-align: center;
   color: #666666;
   font-size: 14px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   line-height: 22.40px;
-  white-space: nowrap;
 }
 
-.duplicate-error-popup-box .message-line2 {
+.error-popup-box .message-line2 {
   left: 50%;
   transform: translateX(-50%);
   top: 141px;
   position: absolute;
+  width: 100%;
   text-align: center;
   color: black;
   font-size: 14px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   line-height: 22.40px;
-  white-space: nowrap;
 }
 
-.duplicate-error-popup-box .exit-btn {
+.error-popup-box .exit-btn,
+.error-popup-box .back-btn {
   all: unset;
   box-sizing: border-box;
   position: absolute;
   top: 190px;
-  left: 72px;
-  width: 130px;
   height: 40px;
-  background: #E0E0E0;
   border-radius: 6px;
   cursor: pointer;
   text-align: center;
-  color: #666666;
-  font-size: 24px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
+  font-size: 24px;
+  transition: background-color 0.3s;
 }
 
-.duplicate-error-popup-box .back-btn {
-  all: unset;
-  box-sizing: border-box;
-  position: absolute;
-  top: 191px;
+.error-popup-box .exit-btn {
+  left: 72px;
+  width: 130px;
+  background: #E0E0E0;
+  color: #666666;
+}
+
+.error-popup-box .back-btn {
   right: 61px;
   width: 146px;
-  height: 40px;
   background: #174D17;
-  border-radius: 6px;
-  cursor: pointer;
-  text-align: center;
   color: white;
-  font-size: 24px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 700;
+}
+
+.error-popup-box .exit-btn:hover,
+.error-popup-box .back-btn:hover {
+    background-color: #0000FF;
+    color: #ffffff;
 }

@@ -73,12 +73,10 @@
   white-space: nowrap;
 }
 
-.confirm-popup-box .button-no {
+.confirm-popup-box .button-no,
+.confirm-popup-box .button-yes {
   all: unset;
   box-sizing: border-box;
-  left: 68px;
-  width: 130px;
-  background-color: #e0e0e0;
   position: absolute;
   top: 170px;
   height: 40px;
@@ -87,55 +85,41 @@
   justify-content: center;
   border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.confirm-popup-box .button-no {
+  left: 68px;
+  width: 130px;
+  background-color: #e0e0e0;
+}
+
+.confirm-popup-box .button-yes {
+  right: 68px;
+  width: 146px;
+  background-color: #174d17de;
+}
+
+.confirm-popup-box .button-no:hover,
+.confirm-popup-box .button-yes:hover {
+    background-color: #0000FF;
 }
 
 .confirm-popup-box .text-wrapper-2 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: -1px;
-  height: 15px;
-  width: 98px;
   font-family: "Montserrat-Bold", Helvetica, sans-serif;
   font-weight: 700;
   color: #666666;
   font-size: 24px;
-  text-align: center;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
-
-.confirm-popup-box .button-yes {
-  all: unset;
-  box-sizing: border-box;
-  right: 68px;
-  width: 146px;
-  background-color: #174d17de;
-  position: absolute;
-  top: 170px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 6px;
-  cursor: pointer;
 }
 
 .confirm-popup-box .text-wrapper-3 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: -1px;
-  height: 15px;
-  margin-left: -1px;
-  width: 187px;
   font-family: "Montserrat-Bold", Helvetica, sans-serif;
   font-weight: 700;
   color: #ffffff;
   font-size: 24px;
-  text-align: center;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
+}
+
+.confirm-popup-box .button-no:hover .text-wrapper-2,
+.confirm-popup-box .button-yes:hover .text-wrapper-3 {
+    color: #ffffff;
 }

@@ -1,31 +1,19 @@
-function togglePasswordVisibility() {
-    const passwordInput = document.getElementById("password");
-    if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-    } else {
-        passwordInput.type = "password";
-    }
-}
-
 document.addEventListener('DOMContentLoaded', function() {
-    // --- Get All Popup Elements ---
+    // --- Login Button ---
+    const loginBtn = document.getElementById('login-btn');
+    if(loginBtn) {
+        loginBtn.addEventListener('click', function() {
+            window.location.href = this.dataset.dashboardUrl;
+        });
+    }
+
+    // --- Forgot Password Popup ---
     const forgotPasswordLink = document.getElementById('forgot-password-link');
     const forgotPasswordPopup = document.getElementById('forgot-password-popup');
     const closeForgotPasswordBtn = document.getElementById('close-forgot-password-btn');
     const cancelForgotPasswordBtn = document.getElementById('cancel-forgot-password-btn');
     const savePasswordBtn = document.getElementById('save-password-btn');
 
-    const confirmCancelPopup = document.getElementById('confirm-cancel-popup');
-    const confirmNoBtn = document.getElementById('confirm-no-btn');
-    const confirmYesBtn = document.getElementById('confirm-yes-btn');
-
-    const notificationPopup = document.getElementById('notification-popup');
-    const notificationBox = document.getElementById('notification-box');
-    const notificationTitle = document.getElementById('notification-title');
-    const notificationMessage = document.getElementById('notification-message');
-    const notificationConfirmBtn = document.getElementById('notification-confirm-btn');
-
-    // --- Forgot Password Popup ---
     if (forgotPasswordLink) {
         forgotPasswordLink.addEventListener('click', (e) => {
             e.preventDefault();
@@ -38,6 +26,10 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // --- Confirm Cancel Popup ---
+    const confirmCancelPopup = document.getElementById('confirm-cancel-popup');
+    const confirmNoBtn = document.getElementById('confirm-no-btn');
+    const confirmYesBtn = document.getElementById('confirm-yes-btn');
+    
     const showConfirmCancelPopup = () => {
         if (confirmCancelPopup) confirmCancelPopup.style.display = 'flex';
     };
@@ -61,35 +53,33 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Notification Popup ---
-    const showNotificationPopup = (isSuccess) => {
+    // --- Generic Success Popup ---
+    const successPopup = document.getElementById('success-popup');
+    const successPopupTitle = document.getElementById('success-popup-title');
+    const successPopupMessage = document.getElementById('success-popup-message');
+    const successPopupConfirmBtn = document.getElementById('success-popup-confirm-btn');
+
+    function showSuccessPopup(title, message) {
         closeForgotPasswordPopup();
-        
-        if (isSuccess) {
-            notificationBox.className = 'notification-popup-box success';
-            notificationTitle.textContent = 'Đổi mật khẩu thành công';
-            notificationMessage.textContent = 'Mật khẩu mới đã được cập nhật.';
-        } else {
-            notificationBox.className = 'notification-popup-box error';
-            notificationTitle.textContent = 'Đổi mật khẩu thất bại';
-            notificationMessage.textContent = 'Hệ thống lỗi, không thể thay đổi mật khẩu.';
+        if (successPopup) {
+            successPopupTitle.textContent = title;
+            successPopupMessage.textContent = message;
+            successPopup.style.display = 'flex';
         }
-        if (notificationPopup) notificationPopup.style.display = 'flex';
-    };
+    }
 
-    const closeAllPopups = () => {
-        if (forgotPasswordPopup) forgotPasswordPopup.style.display = 'none';
-        if (confirmCancelPopup) confirmCancelPopup.style.display = 'none';
-        if (notificationPopup) notificationPopup.style.display = 'none';
-    };
+    function hideSuccessPopup() {
+        if (successPopup) successPopup.style.display = 'none';
+    }
 
-    if (notificationConfirmBtn) notificationConfirmBtn.addEventListener('click', closeAllPopups);
+    if (successPopupConfirmBtn) {
+        successPopupConfirmBtn.addEventListener('click', hideSuccessPopup);
+    }
 
-    // --- Trigger Notification ---
+    // --- Trigger Success Notification ---
     if (savePasswordBtn) {
         savePasswordBtn.addEventListener('click', () => {
-            const isApiCallSuccessful = Math.random() > 0.5;
-            showNotificationPopup(isApiCallSuccessful);
+            showSuccessPopup('Đổi mật khẩu thành công', 'Mật khẩu mới đã được cập nhật.');
         });
     }
 });

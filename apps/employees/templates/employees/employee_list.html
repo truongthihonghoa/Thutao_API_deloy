@@ -5,7 +5,7 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'employees/css/employee_list.css' %}">
-    <link rel="stylesheet" href="{% static 'employees/css/Popup_ConfirmDelete.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/popup_confirm_delete.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -16,7 +16,7 @@
         </div>
         <div class="spacer"></div> <!-- This will push the buttons to the right -->
         <button class="search-action-btn">
-            <img src="{% static 'employees/img/search_icon.png' %}" alt="Tìm kiếm">
+            <img src="{% static 'images/search_icon.png' %}" alt="Tìm kiếm">
             <span>Tìm kiếm</span>
         </button>
         <a href="{% url 'employee_add' %}" class="add-btn">
@@ -47,11 +47,11 @@
                 <td>0966983691</td>
                 <td>Pha chế</td>
                 <td class="action-cell">
-                    <a href="#" class="action-icon">
-                        <img src="{% static 'employees/img/edit_icon.png' %}" alt="Sửa">
+                    <a href="{% url 'employee_edit' employee_id='NV00001' %}" class="action-icon">
+                        <img src="{% static 'images/edit_icon.png' %}" alt="Sửa">
                     </a>
                     <a href="#" class="action-icon delete-btn">
-                        <img src="{% static 'employees/img/delete_icon.png' %}" alt="Xóa">
+                        <img src="{% static 'images/delete_icon.png' %}" alt="Xóa">
                     </a>
                 </td>
             </tr>
@@ -60,7 +60,7 @@
     </table>
 </div>
 
-{% include 'employees/partials/Popup_ConfirmDelete.html' %}
+{% include 'partials/popup_confirm_delete.html' %}
 {% endblock %}
 
 {% block extra_js %}

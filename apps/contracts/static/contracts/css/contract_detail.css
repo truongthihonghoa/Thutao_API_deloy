@@ -1,0 +1,113 @@
+.contract-detail-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2100;
+}
+
+.contract-detail-modal {
+    width: min(820px, calc(100vw - 32px));
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.contract-detail-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    background: #174d17;
+    color: #fff;
+}
+
+.contract-detail-header h3 {
+    margin: 0;
+    font: 700 25px "Montserrat", sans-serif;
+}
+
+.contract-detail-close {
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 38px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.contract-detail-employee {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 22px;
+    border-bottom: 1px solid #ddd;
+}
+
+.contract-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #70452f;
+    color: #70452f;
+    font: 700 20px "Montserrat", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contract-employee-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.contract-employee-copy strong {
+    font: 600 23px "Montserrat", sans-serif;
+}
+
+.contract-employee-copy span {
+    color: #666;
+    font: 400 18px "Montserrat", sans-serif;
+}
+
+.contract-detail-body {
+    padding: 0 22px 18px;
+}
+
+.contract-detail-row {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 12px;
+    padding: 16px 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.contract-detail-row.alt {
+    background: #f3f0ee;
+}
+
+.contract-detail-row span,
+.contract-detail-row strong {
+    font-size: 23px;
+    line-height: 1.35;
+}
+
+.contract-detail-row span {
+    color: #333;
+    font-weight: 600;
+}
+
+.contract-detail-row strong {
+    color: #333;
+    font-weight: 400;
+}
+
+@media (max-width: 720px) {
+    .contract-detail-row {
+        grid-template-columns: 1fr;
+    }
+}

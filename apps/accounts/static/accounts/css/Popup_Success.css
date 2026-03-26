@@ -1,4 +1,4 @@
-.notification-popup-overlay {
+.success-popup-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -8,10 +8,10 @@
     display: none; /* Hidden by default */
     justify-content: center;
     align-items: center;
-    z-index: 3000; /* Highest z-index */
+    z-index: 3000;
 }
 
-.notification-popup-box {
+.success-popup-box {
   position: relative;
   width: 300px;
   height: 180px;
@@ -20,63 +20,52 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Center content vertically */
+  justify-content: center;
   padding: 20px;
   box-sizing: border-box;
 }
 
-.notification-popup-box .heading {
+.success-popup-box .heading {
   width: 100%;
   text-align: center;
   margin-bottom: 8px; /* Add space between title and message */
 }
 
-.notification-popup-box .text-wrapper {
+.success-popup-box .text-wrapper {
   font-family: "Montserrat-SemiBold", Helvetica, sans-serif;
   font-weight: 600;
   color: #222222;
   font-size: 20px;
-  white-space: nowrap;
 }
 
-.notification-popup-box .div {
-  margin-top: 4px;
+.success-popup-box .message {
   font-family: "Montserrat-Regular", Helvetica, sans-serif;
   font-weight: 400;
   color: #666666;
   font-size: 14px;
-  white-space: nowrap;
 }
 
-.notification-popup-box .confirm-button {
+.success-popup-box .confirm-button {
   display: flex;
   width: 174px;
-  height: 40px; /* Adjusted height */
+  height: 40px;
   align-items: center;
   justify-content: center;
   position: absolute;
   bottom: 20px;
   border-radius: 5px;
   cursor: pointer;
+  background-color: #174d17de;
+  transition: background-color 0.3s;
 }
 
-.notification-popup-box .confirm-button .text {
+.success-popup-box .confirm-button:hover {
+    background-color: #0000FF;
+}
+
+.success-popup-box .confirm-button .text {
   font-family: "Montserrat-Bold", Helvetica, sans-serif;
   font-weight: 700;
   color: #ffffff;
-  font-size: 18px; /* Adjusted font size */
-  white-space: nowrap;
-}
-
-/* Success and Error Themes */
-.notification-popup-box.success .confirm-button {
-    background-color: #174d17de;
-}
-
-.notification-popup-box.error .confirm-button {
-    background-color: #d9534f; /* Example red color for error */
-}
-
-.notification-popup-box.error .text-wrapper {
-    color: #d9534f;
+  font-size: 18px;
 }

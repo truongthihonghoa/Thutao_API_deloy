@@ -5,15 +5,14 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'employees/css/employee_add.css' %}">
-    <link rel="stylesheet" href="{% static 'employees/css/Popup_ValidationError.css' %}">
-    <link rel="stylesheet" href="{% static 'employees/css/Popup_DuplicateError.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components/popup_error.css' %}">
 {% endblock %}
 
 {% block content %}
 <div class="add-employee-container">
     <div class="page-header">
         <a href="{% url 'employee_list' %}" class="back-link">
-            <img src="{% static 'employees/img/back_icon.png' %}" alt="Back" class="back-icon">
+            <img src="{% static 'images/back_icon.png' %}" alt="Back" class="back-icon">
             <span>Danh sách nhân viên</span>
         </a>
         <h2 class="page-title">Vui lòng nhập thông tin nhân viên</h2>
@@ -82,12 +81,14 @@
     </form>
 </div>
 
-{% include 'employees/partials/Popup_ValidationError.html' %}
-{% include 'employees/partials/Popup_DuplicateError.html' %}
+{% include 'partials/popup_error.html' %}
 
 {% for message in messages %}
     {% if 'duplicate_error' in message.tags %}
         <div id="auto-show-duplicate-popup" style="display: none;"></div>
+    {% endif %}
+    {% if 'invalid_info_error' in message.tags %}
+        <div id="auto-show-invalid-info-popup" style="display: none;"></div>
     {% endif %}
 {% endfor %}
 
