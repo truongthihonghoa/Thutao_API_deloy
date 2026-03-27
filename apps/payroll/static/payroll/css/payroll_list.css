@@ -1,350 +1,1120 @@
-.payroll-page {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+/* Payroll Management Styles - Based on HTML Reference */
+
+/* Ensure main header is white for payroll page */
+.header {
+    background-color: #ffffff !important;
 }
 
-.payroll-toolbar {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+/* Main Container */
+.mn-hnh-trang-lng-ch-duyt {
+    width: 100%;
+    min-height: 100vh;
+    background: white;
+    position: relative;
 }
 
-.payroll-filter-row,
-.payroll-status-tabs,
-.payroll-modal-footer,
-.payroll-modal-title-row,
-.payroll-summary-row {
+/* Background Container */
+.background {
+    align-self: stretch;
+    padding: 14px 12px 12px 12px;
+    background: white;
+    border-radius: 10px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     display: flex;
+}
+
+/* Top Toolbar Container */
+.container {
+    width: 100%;
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
     flex-wrap: wrap;
 }
 
-.payroll-month-box input,
-.payroll-search-box,
-.payroll-search-box input,
-.payroll-detail-grid input,
-.payroll-calc-month input {
-    width: 100%;
-}
-
-.payroll-month-box,
-.payroll-search-box,
-.payroll-calc-month input {
-    min-height: 48px;
-    border: 1px solid #dadce0;
-    border-radius: 10px;
-    background: rgba(112, 69, 47, 0.04);
-    display: inline-flex;
+/* Month Dropdown */
+.rounded-rectangle {
+    width: 218px;
+    height: 48px;
+    background: rgba(218, 220, 224, 0.04);
+    border-radius: 6px;
+    border: 1px rgba(218, 220, 224, 0.50) solid;
+    display: flex;
     align-items: center;
-    padding: 0 14px;
+    padding: 0 12px;
 }
 
-.payroll-search-box {
-    flex: 1 1 380px;
-    gap: 8px;
-}
-
-.payroll-search-box img {
-    width: 18px;
-    height: 18px;
-}
-
-.payroll-search-box input {
+.month-dropdown {
+    width: 100%;
+    height: 100%;
     border: none;
     background: transparent;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
     outline: none;
-}
-
-.payroll-btn,
-.payroll-status-tab,
-.payroll-icon-btn,
-.payroll-modal-close {
-    border: none;
     cursor: pointer;
 }
 
-.payroll-btn,
-.payroll-status-tab {
-    min-height: 48px;
-    padding: 0 18px;
-    border-radius: 10px;
-    font-size: 15px;
+/* Display Month Text */
+.text-012026 {
+    margin-left: 8px;
+}
+
+.f12026_span {
+    color: black;
+    font-size: 23px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+
+/* Search Box */
+.tm-kim_01 {
+    flex: 1;
+    min-width: 200px;
+    max-width: 300px;
+}
+
+.frame-26 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: #F5F5F5;
+    border-radius: 6px;
+    border: 1px solid #DADCE0;
+}
+
+.tm-kim {
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    outline: none;
+    width: 100%;
+}
+
+/* Buttons */
+.btn-tm-kim,
+.btn-tm-kim_01,
+.btn-tm-kim_02 {
+    padding: 12px 24px;
+    background: #174D17;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.btn-tm-kim:hover,
+.btn-tm-kim_01:hover,
+.btn-tm-kim_02:hover {
+    background: #0F3D0F;
+}
+
+.text_span,
+.text_01_span,
+.text_02_span {
+    color: white;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 700;
+}
+
+/* Tab Container */
+.container_01 {
+    display: flex;
+    gap: 12px;
+    margin: 20px 0;
+    padding: 0 32px;
+}
+
+/* Tab Buttons */
+.background_01,
+.background_02,
+.background_03 {
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.background_01 {
+    background: rgba(23, 77, 23, 0.60);
+}
+
+.background_01.active,
+.background_01:hover {
+    background: #174D17;
+}
+
+.background_02,
+.background_03 {
+    background: rgba(242, 242, 242, 0.60);
+}
+
+.background_02.active,
+.background_03.active,
+.background_02:hover,
+.background_03:hover {
+    background: #174D17;
+}
+
+.background_02.active .duyt_span,
+.background_03.active .tchi_span,
+.background_02:hover .duyt_span,
+.background_03:hover .tchi_span {
+    color: white;
+}
+
+.angchduyt_span {
+    color: white;
+    font-size: 23px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+.duyt_span,
+.tchi_span {
+    color: black;
+    font-size: 23px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+/* Table Styles */
+.table {
+    width: 100%;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.header {
+    width: 100%;
+    background: rgba(23, 77, 23, 0.84);
+}
+
+.header .row {
+    display: grid;
+    grid-template-columns: 64px 114px 108px 200px 106px 167px 120px 77px 170px 132px 150px;
+    align-items: center;
+}
+
+/* Table Cells */
+.cell,
+.cell_01,
+.cell_02,
+.cell_03,
+.cell_04,
+.cell_05,
+.cell_06,
+.cell_07,
+.cell_08,
+.cell_09,
+.cell_action {
+    padding: 16px 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    font: 700 22px "Montserrat", sans-serif;
+    color: #fff;
+}
+
+.cell { box-sizing: border-box; }
+.cell_01 { box-sizing: border-box; }
+.cell_02 { box-sizing: border-box; }
+.cell_03 { box-sizing: border-box; }
+.cell_04 { box-sizing: border-box; }
+.cell_05 { box-sizing: border-box; }
+.cell_06 { box-sizing: border-box; }
+.cell_07 { box-sizing: border-box; }
+.cell_08 { box-sizing: border-box; }
+.cell_09 { box-sizing: border-box; }
+.cell_action { box-sizing: border-box; }
+
+/* Header Text */
+.stt_span,
+.mlng_span_01,
+.mlng_span_02,
+.mnv_span,
+.tnnhnvin_span,
+.thng_span,
+.lngcbn_span,
+.thng_span_01,
+.pht_span,
+.lngthclnh_span,
+.trngthi_span,
+.hanhdong_span {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-align: center;
+}
+
+.stt_span { font-size: 14px; }
+.mlng_span_01 { font-size: 14px; }
+.mlng_span_02 { font-size: 14px; }
+.mnv_span { font-size: 14px; }
+.tnnhnvin_span { font-size: 14px; }
+.thng_span { font-size: 14px; }
+.lngcbn_span { font-size: 14px; }
+.thng_span_01 { font-size: 14px; }
+.pht_span { font-size: 14px; }
+.lngthclnh_span { font-size: 14px; }
+.trngthi_span { font-size: 14px; }
+.hanhdong_span { font-size: 14px; }
+
+/* Table Body Rows */
+.body {
+    width: 100%;
+}
+
+.row_01,
+.row_02,
+.row_03,
+.row_04,
+.row_05 {
+    display: grid;
+    grid-template-columns: 64px 114px 108px 200px 106px 167px 120px 77px 170px 132px 150px;
+    align-items: center;
+    min-height: 68px;
+}
+
+.row_01 { background: #ebe7e4; }
+.row_02 { background: rgba(243, 240, 238, 0.93); }
+.row_03 { background: #ebe7e4; }
+.row_04 { background: rgba(243, 240, 238, 0.93); }
+.row_05 { background: #ebe7e4; }
+
+/* Data Cells - Match header widths */
+.data,
+.data_01,
+.data_02,
+.data_03,
+.data_04,
+.data_05,
+.data_06,
+.data_07,
+.data_08,
+.data_09,
+.data_10,
+.data_11,
+.data_12,
+.data_13,
+.data_14,
+.data_15,
+.data_16,
+.data_17,
+.data_18,
+.data_19,
+.data_20,
+.data_21,
+.data_22,
+.data_23,
+.data_24,
+.data_25,
+.data_26,
+.data_27,
+.data_28,
+.data_29,
+.data_30,
+.data_31,
+.data_32,
+.data_33,
+.data_34,
+.data_35,
+.data_36,
+.data_37,
+.data_38,
+.data_39,
+.data_40,
+.data_41,
+.data_42,
+.data_43,
+.data_44,
+.data_45,
+.data_46,
+.data_47,
+.data_48,
+.data_49,
+.data_action {
+    padding: 22px 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    font: 500 20px "Montserrat", sans-serif;
+    color: #1a1a1a;
+    vertical-align: middle;
+}
+
+/* Match data cell widths to header cell widths - Grid handles sizing */
+.data, .data_10, .data_20, .data_30, .data_40 { box-sizing: border-box; }
+.data_01, .data_11, .data_21, .data_31, .data_41 { box-sizing: border-box; }
+.data_02, .data_12, .data_22, .data_32, .data_42 { box-sizing: border-box; }
+.data_03, .data_13, .data_23, .data_33, .data_43 { align-items: flex-start; box-sizing: border-box; }
+.data_04, .data_14, .data_24, .data_34, .data_44 { box-sizing: border-box; }
+.data_05, .data_15, .data_25, .data_35, .data_45 { box-sizing: border-box; }
+.data_06, .data_16, .data_26, .data_36, .data_46 { box-sizing: border-box; }
+.data_07, .data_17, .data_27, .data_37, .data_47 { box-sizing: border-box; }
+.data_08, .data_18, .data_28, .data_38, .data_48 { box-sizing: border-box; }
+.data_09, .data_19, .data_29, .data_39, .data_49 { box-sizing: border-box; }
+.data_action { box-sizing: border-box; }
+
+/* Data Text */
+.f_span,
+.ml0001_span,
+.nv0001_span,
+.nguynvnan_span,
+.f12025_span,
+.f000000_span,
+.f00000_span,
+.f_span_01,
+.f500000_span,
+.chduyt_span,
+.f_span_02,
+.ml0002_span,
+.nv0002_span,
+.nguynthian_span,
+.f12025_01_span,
+.f500000_span_01,
+.f00000_span_01,
+.f_01_span,
+.f200000_span,
+.chduyt_01_span,
+.f_span_03,
+.ml0003_span,
+.nv0003_span,
+.nguynvnanh_span,
+.f12025_02_span,
+.f000000_span_01,
+.f00000_01_span,
+.f_02_span,
+.f500000_01_span,
+.chduyt_02_span,
+.f_span_04,
+.ml0004_span,
+.nv0004_span,
+.nguynthanh_span,
+.f12025_03_span,
+.f000000_01_span,
+.f000000_span_02,
+.f_03_span,
+.f000000_span_03,
+.chduyt_03_span,
+.f_span_05,
+.ml0005_span,
+.nv0005_span,
+.nguynvnnh_span,
+.f12025_04_span,
+.f000000_02_span,
+.f00000_02_span,
+.f_04_span,
+.f500000_01_span_01,
+.chduyt_04_span {
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+
+.f_span { font-size: 14px; }
+.ml0001_span { font-size: 14px; }
+.nv0001_span { font-size: 14px; }
+.nguynvnan_span { font-size: 14px; }
+.f12025_span { font-size: 14px; }
+.f000000_span { font-size: 14px; }
+.f00000_span { font-size: 14px; }
+.f_span_01 { font-size: 14px; }
+.f500000_span { font-size: 14px; }
+.chduyt_span { font-size: 14px; color: #008000; font-weight: 600; }
+.f_span_02 { font-size: 14px; }
+.ml0002_span { font-size: 14px; }
+.nv0002_span { font-size: 14px; }
+.nguynthian_span { font-size: 14px; }
+.f12025_01_span { font-size: 14px; }
+.f500000_span_01 { font-size: 14px; }
+.f00000_span_01 { font-size: 14px; }
+.f_01_span { font-size: 14px; }
+.f200000_span { font-size: 14px; }
+.chduyt_01_span { font-size: 14px; color: #008000; font-weight: 600; }
+.f_span_03 { font-size: 14px; }
+.ml0003_span { font-size: 14px; }
+.nv0003_span { font-size: 14px; }
+.nguynvnanh_span { font-size: 14px; }
+.f12025_02_span { font-size: 14px; }
+.f000000_span_01 { font-size: 14px; }
+.f00000_01_span { font-size: 14px; }
+.f_02_span { font-size: 14px; }
+.f500000_01_span { font-size: 14px; }
+.chduyt_02_span { font-size: 14px; color: #008000; font-weight: 600; }
+.chduyt_02_span.da-duyet,
+.chduyt_03_span.da-duyet,
+.chduyt_04_span.da-duyet {
+    color: #174D17;
+}
+.f_span_04 { font-size: 14px; }
+.ml0004_span { font-size: 14px; }
+.nv0004_span { font-size: 14px; }
+.nguynthanh_span { font-size: 14px; }
+.f12025_03_span { font-size: 14px; }
+.f000000_01_span { font-size: 14px; }
+.f000000_span_02 { font-size: 14px; }
+.f_03_span { font-size: 14px; }
+.f000000_span_03 { font-size: 14px; }
+.chduyt_03_span { font-size: 14px; color: #008000; font-weight: 600; }
+.f_span_05 { font-size: 14px; }
+.ml0005_span { font-size: 14px; }
+.nv0005_span { font-size: 14px; }
+.nguynvnnh_span { font-size: 14px; }
+.f12025_04_span { font-size: 14px; }
+.f000000_02_span { font-size: 14px; }
+.f00000_02_span { font-size: 14px; }
+.f_04_span { font-size: 14px; }
+.f500000_01_span_01 { font-size: 14px; }
+.chduyt_04_span { font-size: 14px; color: #008000; font-weight: 600; }
+
+/* Luong co ban with hourly rate */
+.luong-cb {
+    font-size: 14px;
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.luong-gio-h {
+    font-size: 12px;
+    color: #666;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Action Buttons */
+.data_action {
+    display: flex;
+    gap: 4px;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.btn-edit,
+.btn-delete,
+.btn-approve,
+.btn-export-row {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #c7b4aa;
+    background: #fff;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    padding: 0;
 }
 
-.payroll-btn-primary {
-    background: rgba(23, 77, 23, 0.92);
-    color: #fff;
+.btn-edit img,
+.btn-delete img,
+.btn-approve img,
+.btn-export-row img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
 }
 
-.payroll-btn-light {
-    background: rgba(23, 77, 23, 0.5);
-    color: #fff;
+.btn-edit:hover:not(:disabled) {
+    transform: translateY(-1px);
+    background: #e6f1e6;
+    border-color: #174d17;
 }
 
-.payroll-status-tab {
-    background: #f2f2f2;
-    color: #1f1f1f;
+.btn-delete:hover:not(:disabled) {
+    transform: translateY(-1px);
+    background: #f3e7e4;
+    border-color: #8d6e63;
 }
 
-.payroll-status-tab.is-active {
-    background: rgba(23, 77, 23, 0.6);
+.btn-approve:hover:not(:disabled) {
+    transform: translateY(-1px);
+    background: #ede4dc;
 }
 
-.payroll-table-card {
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
-    border: 1px solid #ebebeb;
-    overflow: hidden;
+.btn-export-row:hover {
+    transform: translateY(-1px);
+    background: #e6f1e6;
+    border-color: #174d17;
 }
 
-.payroll-table {
-    width: 100%;
-    border-collapse: collapse;
+.btn-edit:disabled,
+.btn-delete:disabled,
+.btn-approve:disabled {
+    background: #f5f5f5;
+    border-color: #dddddd;
+    cursor: not-allowed;
+    opacity: 0.6;
 }
 
-.payroll-table th {
-    background: #174d17;
-    color: #fff;
-    font-size: 14px;
-    padding: 14px 10px;
-    white-space: nowrap;
+.btn-edit:disabled:hover,
+.btn-delete:disabled:hover,
+.btn-approve:disabled:hover {
+    transform: none;
+    background: #f5f5f5;
+    border-color: #dddddd;
 }
 
-.payroll-table td {
-    padding: 14px 10px;
-    text-align: center;
-    font-size: 14px;
-    border-bottom: 1px solid #ececec;
-}
-
-.payroll-table tbody tr:nth-child(odd) td {
-    background: #f3f0ee;
-}
-
-.payroll-table tbody tr:nth-child(even) td {
-    background: #ebe5e0;
-}
-
-.payroll-icon-btn {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    background: #fff;
-    border: 1px solid #d9d9d9;
-}
-
-.payroll-icon-btn img {
-    width: 16px;
-    height: 16px;
-}
-
-.payroll-status {
-    font-weight: 700;
-}
-
-.payroll-status.is-approved {
-    color: #008000;
-}
-
-.payroll-status.is-rejected {
-    color: #ff0000;
-}
-
-.payroll-status.is-pending {
-    color: #b8860b;
-}
-
-.payroll-modal-overlay {
-    position: fixed;
-    inset: 0;
+/* Popup Styles */
+.popup-overlay {
     display: none;
-    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
     justify-content: center;
-    background: rgba(15, 23, 42, 0.42);
-    padding: 24px;
-    z-index: 1200;
+    align-items: center;
 }
 
-.payroll-modal-overlay.is-visible {
-    display: flex;
+.popup-content {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.20);
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
 }
 
-.payroll-modal {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
-    overflow: hidden;
+.confirm-popup {
+    max-width: 400px;
+    width: 90%;
 }
 
-.payroll-modal-medium {
-    width: min(720px, 100%);
-}
-
-.payroll-modal-large {
-    width: min(760px, 100%);
-    padding: 20px;
-    border-radius: 12px;
-}
-
-.payroll-modal-header {
-    background: #174d17;
-    color: #fff;
+.popup-header {
+    background: #174D17;
     padding: 16px 20px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
 }
 
-.payroll-modal-header h2 {
+.popup-header h3 {
+    color: white;
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
     margin: 0;
 }
 
-.payroll-modal-close {
-    background: transparent;
-    color: #fff;
-    width: 36px;
-    height: 36px;
-    font-size: 28px;
-}
-
-.payroll-modal-body {
-    padding: 18px 22px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.payroll-calc-month {
+.btn-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+
+.popup-body {
+    padding: 24px;
+}
+
+.popup-footer {
+    padding: 16px 24px;
+    display: flex;
     gap: 12px;
+    justify-content: flex-end;
+    border-top: 1px solid #EEEEEE;
 }
 
-.payroll-calc-month label {
-    font-weight: 700;
-    font-size: 16px;
-}
-
-.payroll-employee-card {
-    border: 1px solid #e4e4e4;
+/* Tính lương Popup */
+.tnh-lng-3 {
+    width: 720px;
+    background: white;
+    overflow: hidden;
     border-radius: 8px;
+    flex-direction: column;
+    display: flex;
+}
+
+.tnh-lng-3 .popup-header {
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.tnhlng_span {
+    color: white;
+    font-size: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.btn-close-popup {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fspan {
+    color: white;
+    font-size: 28px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.tnh-lng-3 .popup-body {
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.chnthng_span {
+    color: black;
+    font-size: 23px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+
+.options {
+    width: 200px;
+    height: 44px;
+    padding: 0 12px;
+    background: #EFEFEF;
+    border-radius: 6px;
+    border: 1px #CCCCCC solid;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.employee-table {
+    margin-top: 16px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
     overflow: hidden;
 }
 
-.payroll-employee-table {
-    width: 100%;
-    border-collapse: collapse;
+.employee-table .header {
+    background: rgba(23, 77, 23, 0.84);
 }
 
-.payroll-employee-table th {
-    background: #174d17;
+.employee-table .header .row {
+    display: flex;
+    align-items: center;
+    padding: 16px 14px;
+}
+
+.employee-table .header .cell,
+.employee-table .header .cell-check {
+    font: 700 22px "Montserrat", sans-serif;
     color: #fff;
-    padding: 12px;
-    font-size: 14px;
+    padding: 16px 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
 }
 
-.payroll-employee-table td {
-    padding: 12px;
-    border-bottom: 1px solid #ececec;
-    text-align: center;
+.employee-table .row {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    min-height: 68px;
 }
 
-.payroll-modal-footer {
-    padding: 16px 22px 22px;
-    justify-content: flex-end;
+.employee-table .row:nth-child(odd) {
+    background: #ebe7e4;
 }
 
-.payroll-modal-title-row {
+.employee-table .row:nth-child(even) {
+    background: rgba(243, 240, 238, 0.93);
+}
+
+.employee-table .cell,
+.employee-table .cell-check {
+    font: 500 20px "Montserrat", sans-serif;
+    color: #1a1a1a;
+    padding: 22px 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+.input,
+.input_01,
+.input_02 {
+    width: 16px;
+    height: 16px;
+    border: 1px solid black;
+    border-radius: 2.5px;
+}
+
+.tnh-lng-3 .popup-footer {
+    padding: 16px 24px;
     justify-content: space-between;
 }
 
-.payroll-modal-sub {
-    color: #174d17;
-    font-weight: 700;
+.button {
+    padding: 10px 26px;
+    background: rgba(23, 77, 23, 0.50);
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    background: rgba(23, 77, 23, 0.70);
+}
+
+.button_01 {
+    padding: 10px 26px;
+    background: #174D17;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button_01:hover {
+    background: #0F3D0F;
+}
+
+.hy_span,
+.tnhlng_01_span {
+    color: white;
     font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
-.payroll-summary-row {
-    background: #174d17;
-    color: #fff;
-    padding: 12px 16px;
-    border-radius: 8px;
+/* Edit Popup */
+.tnh-lng-4 {
+    width: 760px;
+    padding: 24px 20px;
+    background: white;
+    border-radius: 10px;
+    flex-direction: column;
+    display: flex;
+    gap: 18px;
+}
+
+.frame-2120 {
+    display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
 }
 
-.payroll-detail-grid {
-    margin-top: 14px;
+.tnh-lng-4 .tnhlng_span {
+    color: #4B3A2E;
+    font-size: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.mlngml032022001_span {
+    color: #174D17;
+    font-size: 23px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.summary-row {
+    height: 52px;
+    padding: 12px 16px;
+    background: #174D17;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mnvnv00001-nguynvnan_span,
+.thng032022_span {
+    color: white;
+    font-size: 23px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+.tnh-lng-4 .container_02 {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr 1fr;
     gap: 12px;
 }
 
-.payroll-detail-grid label {
-    background: #f7f2ee;
-    border-radius: 8px;
+.background_01,
+.background_02,
+.background_03,
+.background_04,
+.background_05,
+.background_06 {
     padding: 12px;
+    background: #F7F2EE;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
-.payroll-detail-grid span {
-    font-size: 14px;
+.lngcbn_span,
+.lngtheogi_span,
+.scalm_span,
+.sgilm_span,
+.thng_span,
+.pht_span {
+    color: #555555;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    color: #555;
 }
 
-.payroll-detail-grid input {
-    min-height: 44px;
-    border: 1px solid #ccc;
+.tnh-lng-4 input[type="text"],
+.tnh-lng-4 input[type="number"] {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    background: white;
     border-radius: 6px;
-    padding: 0 10px;
-    font-size: 20px;
+    border: 1px #CCCCCC solid;
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    outline: none;
 }
 
-.payroll-total-box {
-    margin-top: 14px;
-    background: #174d17;
-    color: #fff;
-    border-radius: 8px;
-    padding: 16px;
-    text-align: center;
+.tnh-lng-4 input[readonly] {
+    background: #F5F5F5;
+    color: #666;
 }
 
-.payroll-total-box span {
-    display: block;
+.total-box {
+    height: 88px;
+    padding: 18px;
+    background: #174D17;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.tnglng_span {
+    color: white;
     font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
-.payroll-total-box strong {
-    font-size: 28px;
+.strong18500000vnd_span {
+    color: white;
+    font-size: 26px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
 }
 
-@media (max-width: 1100px) {
-    .payroll-table-card {
-        overflow-x: auto;
-    }
+.tnh-lng-4 .container_04 {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
 
-    .payroll-table {
-        min-width: 1200px;
+.lu_span {
+    color: white;
+    font-size: 22px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+/* Secondary Buttons */
+.btn-secondary {
+    padding: 12px 20px;
+    background: #F2F2F2;
+    color: black;
+    border: 1px solid #DADCE0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: #E0E0E0;
+}
+
+.btn-danger {
+    padding: 12px 20px;
+    background: #E53935;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    background: #C62828;
+}
+
+/* Export Options */
+.export-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid #DADCE0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.radio-option:hover {
+    background: #F5F5F5;
+}
+
+.radio-option input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #174D17;
+}
+
+.radio-option span {
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Error Messages */
+.error-message {
+    color: #E53935;
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    display: none;
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+}
+
+.background_05,
+.background_06 {
+    position: relative;
+}
+
+/* Toast Message */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 14px 20px;
+    background: #174D17;
+    color: white;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    z-index: 2000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.3s ease;
+}
+
+.toast.error {
+    background: #E53935;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
     }
 }
 
-@media (max-width: 720px) {
-    .payroll-detail-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .payroll-summary-row {
+/* Responsive */
+@media (max-width: 1200px) {
+    .container {
         flex-direction: column;
         align-items: flex-start;
+    }
+    
+    .table .header .row,
+    .row_01,
+    .row_02,
+    .row_03,
+    .row_04,
+    .row_05 {
+        gap: 8px;
+    }
+    
+    .cell_03,
+    .data_03 {
+        width: 150px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 16px;
+    }
+    
+    .container_01 {
+        flex-wrap: wrap;
+    }
+    
+    .table {
+        overflow-x: auto;
+    }
+    
+    .tnh-lng-3,
+    .tnh-lng-4 {
+        width: 95%;
+    }
+    
+    .tnh-lng-4 .container_02 {
+        grid-template-columns: 1fr;
     }
 }

@@ -131,3 +131,8 @@ def request_review_list_view(request):
         'requests/request_review_list.html',
         {'requests_data': _sample_requests()},
     )
+
+
+def request_list_view(request):
+    """New view for the enhanced request list UI with mock data"""
+    return render(request, 'requests/request_list.html')

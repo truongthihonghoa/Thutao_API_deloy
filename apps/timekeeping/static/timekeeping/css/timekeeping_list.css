@@ -1,0 +1,455 @@
+/* Timekeeping Management Styles */
+.timekeeping-management-container {
+    padding: 24px;
+    background: white;
+    border-radius: 8px;
+}
+
+/* Header Section */
+.header-section {
+    margin-bottom: 24px;
+}
+
+.toolbar {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.month-dropdown {
+    padding: 12px 16px;
+    border: 1px solid #DADCE0;
+    border-radius: 8px;
+    font-size: 16px;
+    min-width: 180px;
+    background: white;
+}
+
+.search-box {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+    min-width: 250px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #DADCE0;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.btn-search {
+    padding: 12px 20px;
+    background: #174D17;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Summary Box */
+.summary-box {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    padding: 12px 16px;
+    background: #F5F5F5;
+    border-radius: 8px;
+    flex-wrap: wrap;
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+}
+
+/* Buttons */
+.btn-primary {
+    padding: 12px 20px;
+    background: #174D17;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: #0F3D0F;
+}
+
+.btn-secondary {
+    padding: 12px 20px;
+    background: #F2F2F2;
+    color: black;
+    border: 1px solid #DADCE0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Table Styles */
+.timekeeping-table-card {
+    overflow-x: auto;
+    margin-bottom: 24px;
+}
+
+.timekeeping-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13px;
+    min-width: 1200px;
+}
+
+.timekeeping-table th {
+    background: #174D17;
+    color: white;
+    padding: 12px 6px;
+    text-align: center;
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    border-right: 1px solid rgba(255,255,255,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.timekeeping-table th.sticky-col {
+    left: 0;
+    z-index: 20;
+    min-width: 150px;
+}
+
+.timekeeping-table th.total-col {
+    min-width: 100px;
+}
+
+.timekeeping-table th.day-header {
+    min-width: 32px;
+}
+
+.timekeeping-table td {
+    padding: 8px 4px;
+    text-align: center;
+    border-bottom: 1px solid #EEEEEE;
+    border-right: 1px solid #EEEEEE;
+}
+
+.timekeeping-table td.sticky-col {
+    position: sticky;
+    left: 0;
+    background: white;
+    z-index: 5;
+    text-align: left;
+    padding-left: 12px;
+    min-width: 150px;
+}
+
+.timekeeping-table tbody tr:nth-child(odd) td.sticky-col {
+    background: #EBE7E4;
+}
+
+.timekeeping-table tbody tr:nth-child(even) td.sticky-col {
+    background: #F3F0EE;
+}
+
+/* Employee Info */
+.employee-name {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+}
+
+.employee-code {
+    font-size: 11px;
+    color: #666;
+}
+
+/* Day Cells */
+.day-cell {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 12px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    min-width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+}
+
+.day-cell:hover {
+    transform: scale(1.15);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 100;
+}
+
+/* Status Colors */
+.dung-gio {
+    background: #E8F5E9;
+    color: #2E7D32;
+}
+
+.di-tre {
+    background: #FFF3E0;
+    color: #EF6C00;
+}
+
+.vang-phep {
+    background: #E3F2FD;
+    color: #1565C0;
+}
+
+.vang-khong-phep {
+    background: #FFEBEE;
+    color: #C62828;
+}
+
+.nghi-le {
+    background: #F3E5F5;
+    color: #6A1B9A;
+}
+
+/* Total Cell */
+.total-cell {
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 80px;
+}
+
+.total-detail {
+    color: #174D17;
+    font-size: 13px;
+}
+
+.total-sub {
+    color: #666;
+    font-size: 10px;
+    margin-top: 2px;
+}
+
+/* Legend Section */
+.legend-section {
+    padding: 16px;
+    background: #F9F9F9;
+    border-radius: 8px;
+}
+
+.legend-section h4 {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.legend-items {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.legend-box {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+/* Popup Styles */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.20);
+    max-width: 400px;
+    width: 90%;
+}
+
+.popup-header {
+    background: #174D17;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.popup-header h3 {
+    color: white;
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    margin: 0;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.popup-body {
+    padding: 24px;
+}
+
+.popup-footer {
+    padding: 16px 24px;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    border-top: 1px solid #EEEEEE;
+}
+
+/* Export Options */
+.export-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid #DADCE0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.radio-option:hover {
+    background: #F5F5F5;
+}
+
+.radio-option input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #174D17;
+}
+
+.radio-option span {
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Toast Message */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 14px 20px;
+    background: #174D17;
+    color: white;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    z-index: 2000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.3s ease;
+}
+
+.toast.error {
+    background: #E53935;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .summary-box {
+        justify-content: center;
+    }
+
+    .legend-items {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .timekeeping-table {
+        font-size: 11px;
+    }
+
+    .timekeeping-table th,
+    .timekeeping-table td {
+        padding: 4px 2px;
+    }
+
+    .day-cell {
+        min-width: 24px;
+        height: 24px;
+        font-size: 10px;
+    }
+}

@@ -29,24 +29,141 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    background: #f8f9fa;
+    border-radius: 8px;
     text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.contract-back-link:hover {
+    background: #e9ecef;
 }
 
 .contract-back-link img {
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
 }
 
+/* Form errors styling */
+.form-errors {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #fee;
+    border: 1px solid #fcc;
+    border-radius: 6px;
+}
+
+.error-message {
+    color: #d32f2f;
+    font-size: 14px;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.error-message:last-child {
+    margin-bottom: 0;
+}
+
+/* Field error styling */
+.field-error {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 4px;
+    font-weight: 500;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Contract Form Layout - 2 columns */
 .contract-form {
     display: grid;
     grid-template-columns: repeat(2, minmax(280px, 1fr));
     gap: 28px 40px;
 }
 
+/* Ensure form layout remains stable */
 .contract-field {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.contract-field label {
+    color: #4b2e1f;
+    font: 600 22px "Montserrat", sans-serif;
+    margin-bottom: 6px;
+}
+
+.contract-field .required {
+    color: #f00;
+}
+
+.contract-field input,
+.contract-field select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+.contract-field input:focus,
+.contract-field select:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.contract-field input.error,
+.contract-field select.error {
+    border-color: #e74c3c;
+}
+
+/* Hide global messages to prevent layout shift */
+.messages {
+    display: none;
+}
+
+/* Form actions remain stable */
+.contract-form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+}
+
+.contract-cancel-btn,
+.contract-save-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.contract-cancel-btn {
+    background: #6c757d;
+    color: white;
+}
+
+.contract-cancel-btn:hover {
+    background: #5a6268;
+}
+
+.contract-save-btn {
+    background: #28a745;
+    color: white;
+}
+
+.contract-save-btn:hover {
+    background: #218838;
 }
 
 .contract-field label {

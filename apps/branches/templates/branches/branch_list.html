@@ -1,0 +1,275 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Quản lý Chi nhánh - {{ block.super }}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'branches/css/branch_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="branch-management-container">
+    <!-- Search and Actions Toolbar -->
+    <div class="toolbar">
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="Nhập tên chi nhánh">
+            <button type="button" id="btn-search" class="btn-search">Tìm kiếm</button>
+        </div>
+        <button type="button" id="btn-create-branch" class="btn-primary">+ Thêm</button>
+    </div>
+
+    <!-- Branch Table -->
+    <div class="branch-table-card">
+        <table class="branch-table">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên chi nhánh</th>
+                    <th>Địa chỉ</th>
+                    <th>Số điện thoại</th>
+                    <th>Quản lý CN</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Mock Data Row 1 -->
+                <tr>
+                    <td>1</td>
+                    <td>Chi nhánh Hải Châu</td>
+                    <td>123 Nguyễn Văn Linh, Hải Châu, Đà Nẵng</td>
+                    <td>0966983691</td>
+                    <td>Nguyễn Văn A</td>
+                    <td class="branch-actions">
+                        <button type="button" class="btn-view" data-branch-id="1" title="Xem">
+                            <img src="{% static 'images/search_icon.png' %}" alt="Chi tiết">
+                        </button>
+                        <button type="button" class="btn-edit" data-branch-id="1" title="Sửa">
+                            <img src="{% static 'images/edit_icon.png' %}" alt="Sửa">
+                        </button>
+                        <button type="button" class="btn-delete" data-delete-id="1" title="Xóa">
+                            <img src="{% static 'images/delete_icon.png' %}" alt="Xóa">
+                        </button>
+                    </td>
+                </tr>
+                <!-- Mock Data Row 2 -->
+                <tr>
+                    <td>2</td>
+                    <td>Chi nhánh Thanh Khê</td>
+                    <td>456 Lê Đình Lý, Thanh Khê, Đà Nẵng</td>
+                    <td>0912345678</td>
+                    <td>Trần Thị B</td>
+                    <td class="branch-actions">
+                        <button type="button" class="btn-view" data-branch-id="2" title="Xem">
+                            <img src="{% static 'images/search_icon.png' %}" alt="Chi tiết">
+                        </button>
+                        <button type="button" class="btn-edit" data-branch-id="2" title="Sửa">
+                            <img src="{% static 'images/edit_icon.png' %}" alt="Sửa">
+                        </button>
+                        <button type="button" class="btn-delete" data-delete-id="2" title="Xóa">
+                            <img src="{% static 'images/delete_icon.png' %}" alt="Xóa">
+                        </button>
+                    </td>
+                </tr>
+                <!-- Mock Data Row 3 -->
+                <tr>
+                    <td>3</td>
+                    <td>Chi nhánh Liên Chiểu</td>
+                    <td>789 Võ Văn Kiệt, Liên Chiểu, Đà Nẵng</td>
+                    <td>0987654321</td>
+                    <td>Lê Văn C</td>
+                    <td class="branch-actions">
+                        <button type="button" class="btn-view" data-branch-id="3" title="Xem">
+                            <img src="{% static 'images/search_icon.png' %}" alt="Chi tiết">
+                        </button>
+                        <button type="button" class="btn-edit" data-branch-id="3" title="Sửa">
+                            <img src="{% static 'images/edit_icon.png' %}" alt="Sửa">
+                        </button>
+                        <button type="button" class="btn-delete" data-delete-id="3" title="Xóa">
+                            <img src="{% static 'images/delete_icon.png' %}" alt="Xóa">
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- View Branch Modal -->
+<div class="branch-modal-overlay" id="view-branch-modal" style="display: none;">
+    <div class="branch-modal branch-view-modal">
+        <div class="branch-modal-header">
+            <h2>Xem chi nhánh</h2>
+            <button type="button" class="branch-modal-close modal-cancel-btn" data-modal="view-branch-modal">&times;</button>
+        </div>
+        <div class="branch-modal-body">
+            <div class="branch-info">
+                <div class="info-row">
+                    <label>Tên chi nhánh:</label>
+                    <span id="view-branch-name"></span>
+                </div>
+                <div class="info-row">
+                    <label>Địa chỉ:</label>
+                    <span id="view-branch-address"></span>
+                </div>
+                <div class="info-row">
+                    <label>Số điện thoại:</label>
+                    <span id="view-branch-phone"></span>
+                </div>
+                <div class="info-row">
+                    <label>Quản lý:</label>
+                    <span id="view-branch-manager"></span>
+                </div>
+            </div>
+        </div>
+        <div class="branch-modal-footer">
+            <button type="button" class="btn-secondary modal-cancel-btn" data-modal="view-branch-modal">Đóng</button>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Branch Modal -->
+<div class="branch-modal-overlay" id="edit-branch-modal" style="display: none;">
+    <div class="branch-modal branch-edit-modal">
+        <div class="branch-modal-header">
+            <h2>Sửa chi nhánh</h2>
+            <button type="button" class="branch-modal-close modal-cancel-btn" data-modal="edit-branch-modal">&times;</button>
+        </div>
+        <div class="branch-modal-body">
+            <form id="edit-branch-form">
+                <div class="form-group">
+                    <label for="edit-branch-name">Tên chi nhánh:</label>
+                    <input type="text" id="edit-branch-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-branch-address">Địa chỉ:</label>
+                    <input type="text" id="edit-branch-address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-branch-phone">Số điện thoại:</label>
+                    <input type="tel" id="edit-branch-phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-branch-manager">Quản lý:</label>
+                    <input type="text" id="edit-branch-manager" name="manager" required>
+                </div>
+            </form>
+        </div>
+        <div class="branch-modal-footer">
+            <button type="button" class="btn-secondary modal-cancel-btn" data-modal="edit-branch-modal">Hủy</button>
+            <button type="submit" form="edit-branch-form" class="btn-primary">Lưu</button>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="branch-modal-overlay" id="delete-confirm-modal" style="display: none;">
+    <div class="branch-modal branch-delete-modal">
+        <div class="branch-modal-header">
+            <h2>Xác nhận xóa</h2>
+            <button type="button" class="branch-modal-close modal-cancel-btn" data-modal="delete-confirm-modal">&times;</button>
+        </div>
+        <div class="branch-modal-body">
+            <p>Bạn có chắc chắn muốn xóa chi nhánh này không?</p>
+            <p><strong id="delete-branch-name"></strong></p>
+        </div>
+        <div class="branch-modal-footer">
+            <button type="button" class="btn-secondary modal-cancel-btn" data-modal="delete-confirm-modal">Hủy</button>
+            <button type="button" id="confirm-delete-btn" class="btn-danger">Xóa</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Mock data for branches
+    const branches = {
+        1: { name: 'Chi nhánh Hải Châu', address: '123 Nguyễn Văn Linh, Hải Châu, Đà Nẵng', phone: '0966983691', manager: 'Nguyễn Văn A' },
+        2: { name: 'Chi nhánh Thanh Khê', address: '456 Lê Đình Lý, Thanh Khê, Đà Nẵng', phone: '0912345678', manager: 'Trần Thị B' },
+        3: { name: 'Chi nhánh Liên Chiểu', address: '789 Võ Văn Kiệt, Liên Chiểu, Đà Nẵng', phone: '0987654321', manager: 'Lê Văn C' }
+    };
+
+    // View branch
+    document.querySelectorAll('.btn-view').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const branchId = this.dataset.branchId;
+            const branch = branches[branchId];
+            
+            document.getElementById('view-branch-name').textContent = branch.name;
+            document.getElementById('view-branch-address').textContent = branch.address;
+            document.getElementById('view-branch-phone').textContent = branch.phone;
+            document.getElementById('view-branch-manager').textContent = branch.manager;
+            
+            document.getElementById('view-branch-modal').style.display = 'flex';
+        });
+    });
+
+    // Edit branch
+    document.querySelectorAll('.btn-edit').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const branchId = this.dataset.branchId;
+            const branch = branches[branchId];
+            
+            document.getElementById('edit-branch-name').value = branch.name;
+            document.getElementById('edit-branch-address').value = branch.address;
+            document.getElementById('edit-branch-phone').value = branch.phone;
+            document.getElementById('edit-branch-manager').value = branch.manager;
+            
+            document.getElementById('edit-branch-modal').style.display = 'flex';
+        });
+    });
+
+    // Delete branch
+    document.querySelectorAll('.btn-delete').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const deleteId = this.dataset.deleteId;
+            const branch = branches[deleteId];
+            
+            document.getElementById('delete-branch-name').textContent = branch.name;
+            document.getElementById('confirm-delete-btn').dataset.deleteId = deleteId;
+            
+            document.getElementById('delete-confirm-modal').style.display = 'flex';
+        });
+    });
+
+    // Modal close buttons
+    document.querySelectorAll('.modal-cancel-btn, .branch-modal-close').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const modalId = this.dataset.modal || this.closest('.branch-modal-overlay').id;
+            document.getElementById(modalId).style.display = 'none';
+        });
+    });
+
+    // Confirm delete
+    document.getElementById('confirm-delete-btn').addEventListener('click', function() {
+        const deleteId = this.dataset.deleteId;
+        console.log('Deleting branch:', deleteId);
+        // Here you would typically make an API call to delete the branch
+        document.getElementById('delete-confirm-modal').style.display = 'none';
+    });
+
+    // Search functionality
+    document.getElementById('btn-search').addEventListener('click', function() {
+        const searchTerm = document.getElementById('search-input').value.toLowerCase();
+        console.log('Searching for:', searchTerm);
+        // Here you would typically filter the table or make an API call
+    });
+
+    // Create branch
+    document.getElementById('btn-create-branch').addEventListener('click', function() {
+        console.log('Opening create branch form');
+        // Here you would typically open a create modal or navigate to create page
+    });
+
+    // Edit form submission
+    document.getElementById('edit-branch-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        console.log('Editing branch:', Object.fromEntries(formData));
+        // Here you would typically make an API call to update the branch
+        document.getElementById('edit-branch-modal').style.display = 'none';
+    });
+});
+</script>
+{% endblock %}

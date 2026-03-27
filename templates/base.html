@@ -34,16 +34,16 @@
             <div class="nav-item dropdown">
                 <span>Chi nhánh ⌵</span>
                 <div class="dropdown-content">
-                    <a href="#">Admin</a>
+                    <a href="{% url 'branches:branch_admin' %}">Admin</a>
                     <a href="#">Nhân viên</a>
                 </div>
             </div>
             <a href="{% url 'employee_list' %}" class="nav-item">Nhân Viên</a>
             <a href="{% url 'contract_list' %}" class="nav-item">Hợp Đồng</a>
             <a href="{% url 'schedule_list' %}" class="nav-item">Lịch Làm Việc</a>
-            <a href="{% url 'request_review_list' %}" class="nav-item">Yêu Cầu</a>
+            <a href="{% url 'request_list' %}" class="nav-item">Yêu Cầu</a>
             <a href="{% url 'payroll_list' %}" class="nav-item">Bảng Lương</a>
-            <a href="#" class="nav-item">Báo Cáo</a>
+            <a href="{% url 'reports:report_list' %}" class="nav-item">Báo Cáo</a>
         </nav>
 
         <main class="main-content">

@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
     const contractForm = document.querySelector('.contract-form');
     const cancelBtn = document.querySelector('.contract-cancel-btn');
+    const contractTypeSelect = document.getElementById('loai_hd');
+    const luongCoBanInput = document.getElementById('luong_co_ban');
+    const luongTheoGioInput = document.getElementById('luong_theo_gio');
 
     const errorPopup = document.getElementById('error-popup');
     const errorPopupTitle = document.getElementById('error-popup-title');
@@ -17,6 +20,26 @@ document.addEventListener('DOMContentLoaded', function () {
     const successPopupTitle = document.getElementById('success-popup-title');
     const successPopupMessage = document.getElementById('success-popup-message');
     const successPopupConfirmBtn = document.getElementById('success-popup-confirm-btn');
+
+    // Handle contract type change
+    if (contractTypeSelect) {
+        contractTypeSelect.addEventListener('change', function() {
+            const contractType = this.value;
+            
+            if (contractType === 'Full-time') {
+                luongCoBanInput.required = true;
+                luongTheoGioInput.required = false;
+                luongTheoGioInput.value = '';
+            } else if (contractType === 'Part-time') {
+                luongCoBanInput.required = false;
+                luongTheoGioInput.required = true;
+                luongCoBanInput.value = '';
+            } else {
+                luongCoBanInput.required = false;
+                luongTheoGioInput.required = false;
+            }
+        });
+    }
 
     function showErrorPopup(title, message1, message2) {
         errorPopupTitle.textContent = title;
@@ -40,20 +63,48 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = contractForm.dataset.contractListUrl;
     }
 
-    contractForm.addEventListener('submit', function (event) {
+    function handleFormSubmit(event) {
+        // Ngăn submit thật - chỉ xử lý UI
         event.preventDefault();
-
-        if (!contractForm.checkValidity()) {
-            showErrorPopup(
-                'THÔNG BÁO LỖI',
-                'Xin vui lòng nhập đầy đủ thông tin!',
-                'Vui lòng kiểm tra lại các trường bắt buộc.'
-            );
+        
+        const contractType = contractTypeSelect.value;
+        const luongCoBan = parseFloat(luongCoBanInput.value) || 0;
+        const luongTheoGio = parseFloat(luongTheoGioInput.value) || 0;
+        
+        // Client-side validation
+        if (contractType === 'Full-time' && luongTheoGio > 0) {
+            showErrorPopup('LỖI', 'Full time không có lương/giờ', 'Vui lòng chỉ nhập lương cơ bản cho hợp đồng Full time.');
             return;
         }
+        
+        if (contractType === 'Part-time' && luongCoBan > 0) {
+            showErrorPopup('LỖI', 'Part time không có lương cơ bản', 'Vui lòng chỉ nhập lương/giờ cho hợp đồng Part time.');
+            return;
+        }
+        
+        if (contractType === 'Full-time' && luongCoBan <= 0) {
+            showErrorPopup('LỖI', 'Full time phải có lương cơ bản', 'Vui lòng nhập lương cơ bản cho hợp đồng Full time.');
+            return;
+        }
+        
+        if (contractType === 'Part-time' && luongTheoGio <= 0) {
+            showErrorPopup('LỖI', 'Part time phải có lương/giờ', 'Vui lòng nhập lương/giờ cho hợp đồng Part time.');
+            return;
+        }
+        
+        // Hiển thị popup success
+        const successTitle = contractForm.dataset.successTitle || 'Thành công';
+        const successMessage = contractForm.dataset.successMessage || 'Thao tác thành công';
+        showSuccessPopup(successTitle, successMessage);
+        
+        // Reset form sau 2 giây
+        setTimeout(() => {
+            contractForm.reset();
+        }, 2000);
+    }
 
-        showSuccessPopup();
-    });
+    // Gán handler cho form
+    contractForm.addEventListener('submit', handleFormSubmit);
 
     cancelBtn.addEventListener('click', () => {
         confirmCancelPopup.style.display = 'flex';
