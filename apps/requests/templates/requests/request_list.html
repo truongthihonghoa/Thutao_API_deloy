@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Quản lý Yêu cầu - {{ block.super }}{% endblock %}
+{% block title %}Quản lý Yêu cầu - GÉ CAFE{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'requests/css/request_list.css' %}">
@@ -9,318 +9,70 @@
 
 {% block content %}
 <div class="request-management-container">
-    <div class="toolbar">
-        <div class="search-box">
-            <input type="text" id="search-input" placeholder="Nhập tên nhân viên">
-            <button type="button" id="btn-search" class="btn-search">Tìm kiếm</button>
-        </div>
-        <button type="button" id="btn-create-request" class="btn-primary">+ Tạo đăng ký</button>
-    </div>
-
-    <div class="filter-section">
-        <div class="filter-box">
-            <select id="filter-type">
+    <div class="top-control-bar">
+        <div class="control-left">
+            <select id="filter-type" class="ge-select">
                 <option value="">Loại yêu cầu: Tất cả</option>
                 <option value="nghi-phep">Nghỉ phép</option>
-                <option value="ca-lam">Đăng ký ca làm</option>
-                <option value="lam-them">Làm thêm giờ</option>
-                <option value="nghi-khong-luong">Nghỉ không lương</option>
+                <option value="ca-lam">Ca làm</option>
             </select>
+
+            <div class="search-wrapper">
+                <i class="fa fa-search search-icon"></i>
+                <input type="text" id="search-input" placeholder="Tìm kiếm">
+            </div>
+
+            <button type="button" class="btn-search-ge">
+                <i class="fa fa-search"></i> Tìm kiếm
+            </button>
         </div>
     </div>
 
-    <div class="status-tabs">
-        <button type="button" class="tab-btn active" data-status="all">Tất cả</button>
-        <button type="button" class="tab-btn" data-status="cho-duyet">Đang chờ duyệt</button>
-        <button type="button" class="tab-btn" data-status="da-duyet">Đã duyệt</button>
-        <button type="button" class="tab-btn" data-status="tu-choi">Đã từ chối</button>
+    <div class="status-filter-row">
+        <button class="status-btn active" data-status="all">Tất cả</button>
+        <button class="status-btn" data-status="cho-duyet">Đang chờ duyệt</button>
+        <button class="status-btn" data-status="da-duyet">Đã duyệt</button>
+        <button class="status-btn" data-status="tu-choi">Đã từ chối</button>
     </div>
 
-    <div class="request-table-card">
-        <table class="request-table">
-        <thead>
-            <tr>
-                <th>STT</th>
-                <th>Mã đăng ký</th>
-                <th>Tên nhân viên</th>
-                <th>Loại yêu cầu</th>
-                <th>Ngày đăng ký</th>
-                <th>Trạng thái</th>
-                <th>Hành động</th>
-            </tr>
-        </thead>
-        <tbody id="request-table-body">
-            <!-- Mock Data Row 1 -->
-            <tr data-request-id="DK000001" class="request-row" data-status="cho-duyet" data-type="nghi-phep">
-                <td>1</td>
-                <td>DK000001</td>
-                <td>Nguyễn Văn An</td>
-                <td>Nghỉ phép</td>
-                <td>26/12/2026</td>
-                <td><span class="status-badge cho-duyet">Chờ duyệt</span></td>
-                <td class="action-cell">
-                    <button type="button" class="btn-view" data-request-id="DK000001" title="Xem">
-                        <img src="{% static 'images/search_icon.png' %}" alt="Chi tiết">
-                    </button>
-                    <button type="button" class="btn-edit" data-request-id="DK000001" title="Sửa">
-                        <img src="{% static 'images/edit_icon.png' %}" alt="Sửa">
-                    </button>
-                    <button type="button" class="btn-delete" data-request-id="DK000001" title="Xóa">
-                        <img src="{% static 'images/delete_icon.png' %}" alt="Xóa">
-                    </button>
-                </td>
-            </tr>
-            <!-- Mock Data Row 2 -->
-            <tr data-request-id="DK000002" class="request-row" data-status="cho-duyet" data-type="nghi-phep">
-                <td>2</td>
-                <td>DK000002</td>
-                <td>Nguyễn Thanh Anh</td>
-                <td>Nghỉ phép</td>
-                <td>26/02/2025</td>
-                <td><span class="status-badge cho-duyet">Chờ duyệt</span></td>
-                <td class="action-cell">
-                    <button type="button" class="btn-view" data-request-id="DK000002" title="Xem">
-                        <img src="{% static 'images/search_icon.png' %}" alt="Chi tiết">
-                    </button>
-                    <button type="button" class="btn-edit" data-request-id="DK000002" title="Sửa">
-                        <img src="{% static 'images/edit_icon.png' %}" alt="Sửa">
-                    </button>
-                    <button type="button" class="btn-delete" data-request-id="DK000002" title="Xóa">
-                        <img src="{% static 'images/delete_icon.png' %}" alt="Xóa">
-                    </button>
-                </td>
-            </tr>
-            <!-- Mock Data Row 3 -->
-            <tr data-request-id="DK000003" class="request-row" data-status="da-duyet" data-type="ca-lam">
-                <td>3</td>
-                <td>DK000003</td>
-                <td>Nguyễn Văn Anh</td>
-                <td>Ca làm</td>
-                <td>08/02/2026</td>
-                <td><span class="status-badge da-duyet">Đã duyệt</span></td>
-                <td class="action-cell">
-                    <button type="button" class="btn-view" data-request-id="DK000003" title="Xem">
-                        <img src="{% static 'images/search_icon.png' %}" alt="Chi tiết">
-                    </button>
-                    <button type="button" class="btn-edit" data-request-id="DK000003" disabled title="Sửa">
-                        <img src="{% static 'images/edit_icon.png' %}" alt="Sửa">
-                    </button>
-                    <button type="button" class="btn-delete" data-request-id="DK000003" disabled title="Xóa">
-                        <img src="{% static 'images/delete_icon.png' %}" alt="Xóa">
-                    </button>
-                </td>
-            </tr>
-            <!-- Mock Data Row 4 -->
-            <tr data-request-id="DK000004" class="request-row" data-status="tu-choi" data-type="nghi-phep">
-                <td>4</td>
-                <td>DK000004</td>
-                <td>Trần Minh Quân</td>
-                <td>Nghỉ phép</td>
-                <td>02/06/2025</td>
-                <td><span class="status-badge tu-choi">Đã từ chối</span></td>
-                <td class="action-cell">
-                    <button type="button" class="btn-view" data-request-id="DK000004" title="Xem">
-                        <img src="{% static 'images/search_icon.png' %}" alt="Chi tiết">
-                    </button>
-                    <button type="button" class="btn-edit" data-request-id="DK000004" disabled title="Sửa">
-                        <img src="{% static 'images/edit_icon.png' %}" alt="Sửa">
-                    </button>
-                    <button type="button" class="btn-delete" data-request-id="DK000004" disabled title="Xóa">
-                        <img src="{% static 'images/delete_icon.png' %}" alt="Xóa">
-                    </button>
-                </td>
-            </tr>
-            <!-- Mock Data Row 5 -->
-            <tr data-request-id="DK000005" class="request-row" data-status="cho-duyet" data-type="ca-lam">
-                <td>5</td>
-                <td>DK000005</td>
-                <td>Lê Thị Hồng</td>
-                <td>Ca làm</td>
-                <td>05/06/2025</td>
-                <td><span class="status-badge cho-duyet">Chờ duyệt</span></td>
-                <td class="action-cell">
-                    <button type="button" class="btn-view" data-request-id="DK000005" title="Xem">
-                        <img src="{% static 'images/search_icon.png' %}" alt="Chi tiết">
-                    </button>
-                    <button type="button" class="btn-edit" data-request-id="DK000005" title="Sửa">
-                        <img src="{% static 'images/edit_icon.png' %}" alt="Sửa">
-                    </button>
-                    <button type="button" class="btn-delete" data-request-id="DK000005" title="Xóa">
-                        <img src="{% static 'images/delete_icon.png' %}" alt="Xóa">
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="ge-table-card">
+        <table class="ge-main-table">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Mã đăng ký</th>
+                    <th>Tên nhân viên</th>
+                    <th>Loại yêu cầu</th>
+                    <th>Ngày đăng ký</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>DK000001</td>
+                    <td>Nguyễn Văn An</td>
+                    <td>Nghỉ phép</td>
+                    <td>26/12/2026</td>
+                    <td><span class="stt-waiting">Chờ duyệt</span></td>
+                    <td>
+                        <button class="btn-detail-ge">Xem chi tiết</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>DK000002</td>
+                    <td>Nguyễn Thanh Anh</td>
+                    <td>Nghỉ phép</td>
+                    <td>26/02/2025</td>
+                    <td><span class="stt-waiting">Chờ duyệt</span></td>
+                    <td>
+                        <button class="btn-detail-ge">Xem chi tiết</button>
+                    </td>
+                </tr>
+                </tbody>
+        </table>
     </div>
 </div>
-
-<!-- Create/Edit Request Popup -->
-<div id="request-form-popup" class="popup-overlay" style="display: none;">
-    <div class="popup-content">
-        <div class="popup-header">
-            <h3 id="form-title">Tạo đăng ký</h3>
-            <button type="button" class="btn-close" id="form-close-btn">&times;</button>
-        </div>
-        <form id="request-form">
-            <input type="hidden" id="request-id" value="">
-            
-            <div class="form-group">
-                <label for="request-type">Loại yêu cầu <span class="required">*</span></label>
-                <select id="request-type" required>
-                    <option value="">-- Chọn loại --</option>
-                    <option value="ca-lam">Ca làm</option>
-                    <option value="nghi-phep">Nghỉ phép</option>
-                </select>
-                <span class="error-message" id="error-request-type"></span>
-            </div>
-
-            <!-- Ca làm fields -->
-            <div id="ca-lam-fields" style="display: none;">
-                <div class="form-group">
-                    <label for="ngay-lam">Ngày làm <span class="required">*</span></label>
-                    <input type="date" id="ngay-lam">
-                    <span class="error-message" id="error-ngay-lam"></span>
-                </div>
-                <div class="form-group">
-                    <label for="gio-bat-dau">Giờ bắt đầu <span class="required">*</span></label>
-                    <input type="time" id="gio-bat-dau">
-                    <span class="error-message" id="error-gio-bat-dau"></span>
-                </div>
-                <div class="form-group">
-                    <label for="gio-ket-thuc">Giờ kết thúc <span class="required">*</span></label>
-                    <input type="time" id="gio-ket-thuc">
-                    <span class="error-message" id="error-gio-ket-thuc"></span>
-                </div>
-                <div class="form-group">
-                    <label for="ghi-chu">Ghi chú</label>
-                    <textarea id="ghi-chu" rows="3"></textarea>
-                </div>
-            </div>
-
-            <!-- Nghỉ phép fields -->
-            <div id="nghi-phep-fields" style="display: none;">
-                <div class="form-group">
-                    <label for="ngay-bat-dau">Ngày bắt đầu <span class="required">*</span></label>
-                    <input type="date" id="ngay-bat-dau">
-                    <span class="error-message" id="error-ngay-bat-dau"></span>
-                </div>
-                <div class="form-group">
-                    <label for="ngay-ket-thuc">Ngày kết thúc <span class="required">*</span></label>
-                    <input type="date" id="ngay-ket-thuc">
-                    <span class="error-message" id="error-ngay-ket-thuc"></span>
-                </div>
-                <div class="form-group">
-                    <label for="ly-do">Lý do <span class="required">*</span></label>
-                    <textarea id="ly-do" rows="3"></textarea>
-                    <span class="error-message" id="error-ly-do"></span>
-                </div>
-            </div>
-
-            <div class="form-actions">
-                <button type="submit" class="btn-primary">Gửi đăng ký</button>
-                <button type="button" class="btn-secondary" id="form-cancel-btn">Hủy</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- View Request Detail Popup -->
-<div id="request-detail-popup" class="popup-overlay" style="display: none;">
-    <div class="popup-content detail-popup">
-        <div class="popup-header">
-            <h3>Chi tiết yêu cầu</h3>
-            <button type="button" class="btn-close" id="detail-close-btn">&times;</button>
-        </div>
-        <div class="detail-body">
-            <div class="detail-section employee-info">
-                <div class="avatar">👤</div>
-                <div class="info">
-                    <h4 id="detail-employee-name">Nguyễn Văn An</h4>
-                    <p id="detail-employee-code">Mã nhân viên - NV001</p>
-                </div>
-            </div>
-            <div class="detail-row">
-                <span class="label">Mã đăng ký:</span>
-                <span id="detail-request-code" class="value"></span>
-            </div>
-            <div class="detail-row">
-                <span class="label">Loại yêu cầu:</span>
-                <span id="detail-request-type" class="value"></span>
-            </div>
-            <div class="detail-row" id="detail-ngay-lam-row">
-                <span class="label">Ngày làm:</span>
-                <span id="detail-ngay-lam" class="value"></span>
-            </div>
-            <div class="detail-row" id="detail-gio-row">
-                <span class="label">Giờ:</span>
-                <span id="detail-gio" class="value"></span>
-            </div>
-            <div class="detail-row" id="detail-ngay-nghi-row">
-                <span class="label">Ngày nghỉ:</span>
-                <span id="detail-ngay-nghi" class="value"></span>
-            </div>
-            <div class="detail-row" id="detail-ly-do-row">
-                <span class="label">Lý do:</span>
-                <span id="detail-ly-do" class="value"></span>
-            </div>
-            <div class="detail-row">
-                <span class="label">Ngày đăng ký:</span>
-                <span id="detail-ngay-dang-ky" class="value"></span>
-            </div>
-            <div class="detail-row">
-                <span class="label">Trạng thái:</span>
-                <span id="detail-status" class="value"></span>
-            </div>
-        </div>
-        <div class="popup-footer" id="detail-actions">
-            <button type="button" class="btn-approve" id="btn-approve">✔ Duyệt</button>
-            <button type="button" class="btn-reject" id="btn-reject">✖ Từ chối</button>
-        </div>
-    </div>
-</div>
-
-<!-- Reject Reason Popup -->
-<div id="reject-reason-popup" class="popup-overlay" style="display: none;">
-    <div class="popup-content">
-        <div class="popup-header">
-            <h3>Lý do từ chối</h3>
-            <button type="button" class="btn-close" id="reject-close-btn">&times;</button>
-        </div>
-        <div class="form-group">
-            <label for="reject-reason">Nhập lý do <span class="required">*</span></label>
-            <textarea id="reject-reason" rows="4" required></textarea>
-            <span class="error-message" id="error-reject-reason"></span>
-        </div>
-        <div class="form-actions">
-            <button type="button" class="btn-primary" id="btn-confirm-reject">Xác nhận</button>
-            <button type="button" class="btn-secondary" id="btn-cancel-reject">Hủy</button>
-        </div>
-    </div>
-</div>
-
-<!-- Delete Confirm Popup -->
-<div id="delete-confirm-popup" class="popup-overlay" style="display: none;">
-    <div class="popup-content confirm-popup">
-        <div class="popup-header">
-            <h3>Xác nhận xóa</h3>
-        </div>
-        <div class="popup-body">
-            <p>Bạn có chắc muốn xóa đăng ký này không?</p>
-        </div>
-        <div class="popup-footer">
-            <button type="button" class="btn-secondary" id="btn-delete-no">Không</button>
-            <button type="button" class="btn-danger" id="btn-delete-yes">Có, xóa</button>
-        </div>
-    </div>
-</div>
-
-<!-- Success/Error Toast -->
-<div id="toast-message" class="toast" style="display: none;">
-    <span id="toast-text"></span>
-</div>
-{% endblock %}
-
-{% block extra_js %}
-    <script src="{% static 'requests/js/request_list.js' %}"></script>
 {% endblock %}

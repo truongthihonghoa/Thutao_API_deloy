@@ -1,71 +1,67 @@
 <div class="contract-detail-overlay" id="contract-detail-popup">
     <div class="contract-detail-modal">
         <div class="contract-top-header">
-            <div class="top-title">
-                <i class="fa fa-file-text"></i> Chi tiết hợp đồng lao động
-            </div>
+            <div class="top-title">Chi tiet hop dong lao dong</div>
             <button type="button" class="top-close-btn" id="contract-detail-close-btn">&times;</button>
         </div>
 
         <div class="contract-tool-bar">
             <div class="tool-left">
-                <button class="btn-print" onclick="window.print()">
-                    <i class="fa fa-print"></i> In hợp đồng
-                </button>
-                <span class="contract-code">Mã HĐ: #HD2026-001</span>
+                <button class="btn-print" type="button" onclick="window.print()">In hop dong</button>
+                <span class="contract-code">Ma HD: <strong id="detail-contract-id">HD00001</strong></span>
             </div>
             <div class="tool-right">
-                <span>Chế độ: <strong>Chỉ xem (Read-only)</strong></span>
+                <span>Che do: <strong>Chi xem (Read-only)</strong></span>
             </div>
         </div>
 
         <div class="contract-paper">
             <div class="paper-header">
-                <h4>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</h4>
-                <p>Độc lập - Tự do - Hạnh phúc</p>
+                <h4>CONG HOA XA HOI CHU NGHIA VIET NAM</h4>
+                <p>Doc lap - Tu do - Hanh phuc</p>
                 <div class="header-line"></div>
 
-                <h2 class="paper-title">HỢP ĐỒNG LAO ĐỘNG</h2>
-                <p class="paper-no">(Số: 2026/HĐLĐ-GECAFE)</p>
+                <h2 class="paper-title">HOP DONG LAO DONG</h2>
+                <p class="paper-no">(So: <span id="detail-contract-number">2026/HDLD-GECAFE</span>)</p>
             </div>
 
             <div class="paper-body">
-                <p>Hôm nay, ngày 01 tháng 01 năm 2026, tại GÉ CAFE, chúng tôi gồm:</p>
+                <p>Hom nay, ngay <span id="detail-signed-date">01/01/2026</span>, tai GE CAFE, chung toi gom:</p>
 
                 <div class="section">
-                    <strong class="section-label">BÊN A: NGƯỜI SỬ DỤNG LAO ĐỘNG</strong>
-                    <div class="contract-line"><span>Đại diện bởi Ông/Bà:</span> <p>Trương Thị Hồng Hoa</p></div>
-                    <div class="contract-line"><span>Chức vụ:</span> <p>Quản lý GÉ CAFE - Chi nhánh Lê Hồng Phong</p></div>
+                    <strong class="section-label">BEN A: NGUOI SU DUNG LAO DONG</strong>
+                    <div class="contract-line"><span>Dai dien boi Ong/Ba:</span> <p id="detail-company-representative">Truong Thi Hong Hoa</p></div>
+                    <div class="contract-line"><span>Chuc vu:</span> <p id="detail-company-position">Quan ly GE CAFE - Chi nhanh Le Hong Phong</p></div>
                 </div>
 
                 <div class="section">
-                    <strong class="section-label">BÊN B: NGƯỜI LAO ĐỘNG</strong>
-                    <div class="contract-line"><span>Họ và tên:</span> <p>NGUYỄN VĂN AN</p></div>
-                    <div class="contract-line"><span>Mã nhân viên:</span> <p>NV00001</p></div>
-                    <div class="contract-line"><span>Ngày sinh:</span> <p>15/05/1998</p></div>
+                    <strong class="section-label">BEN B: NGUOI LAO DONG</strong>
+                    <div class="contract-line"><span>Ho va ten:</span> <p id="detail-employee-name">NGUYEN VAN AN</p></div>
+                    <div class="contract-line"><span>Ma nhan vien:</span> <p id="detail-employee-code">NV00001</p></div>
+                    <div class="contract-line"><span>Ngay sinh:</span> <p id="detail-birth-date">15/05/1998</p></div>
                 </div>
 
                 <div class="section">
-                    <strong class="section-label">ĐIỀU KHOẢN HỢP ĐỒNG</strong>
-                    <div class="contract-line"><span>1. Loại hợp đồng:</span> <p>Full time</p></div>
-                    <div class="contract-line"><span>2. Ngày bắt đầu:</span> <p>25/12/2025</p></div>
-                    <div class="contract-line"><span>3. Ngày kết thúc:</span> <p>25/12/2026</p></div>
-                    <div class="contract-line"><span>4. Lương cố định:</span> <p>4,000,000 VNĐ (Bốn triệu đồng chẵn)</p></div>
-                    <div class="contract-line"><span>5. Chức vụ:</span> <p>Pha chế</p></div>
-                    <div class="contract-line"><span>6. Trạng thái:</span> <strong class="text-success">CÓ HIỆU LỰC</strong></div>
+                    <strong class="section-label">DIEU KHOAN HOP DONG</strong>
+                    <div class="contract-line"><span>1. Loai hop dong:</span> <p id="detail-contract-type">Full time</p></div>
+                    <div class="contract-line"><span>2. Ngay bat dau:</span> <p id="detail-start-date">25/12/2025</p></div>
+                    <div class="contract-line"><span>3. Ngay ket thuc:</span> <p id="detail-end-date">25/12/2026</p></div>
+                    <div class="contract-line"><span>4. Luong co dinh:</span> <p id="detail-salary-display">4,000,000 VND</p></div>
+                    <div class="contract-line"><span>5. Chuc vu:</span> <p id="detail-position">Pha che</p></div>
+                    <div class="contract-line"><span>6. Trang thai:</span> <strong class="text-success" id="detail-trang-thai">CO HIEU LUC</strong></div>
                 </div>
             </div>
 
             <div class="paper-footer">
                 <div class="sig-box">
-                    <strong>ĐẠI DIỆN BÊN A</strong>
-                    <p>(Đã ký)</p>
-                    <div class="sig-name">Nguyễn Văn An</div>
+                    <strong>DAI DIEN BEN A</strong>
+                    <p>(Da ky)</p>
+                    <div class="sig-name" id="detail-sign-a">Truong Thi Hong Hoa</div>
                 </div>
                 <div class="sig-box">
-                    <strong>NGƯỜI LAO ĐỘNG (BÊN B)</strong>
-                    <p>(Đã ký)</p>
-                    <div class="sig-name">Nguyễn Văn An</div>
+                    <strong>NGUOI LAO DONG (BEN B)</strong>
+                    <p>(Da ky)</p>
+                    <div class="sig-name" id="detail-sign-b">Nguyen Van An</div>
                 </div>
             </div>
         </div>

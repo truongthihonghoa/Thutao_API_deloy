@@ -1,593 +1,179 @@
-/* Request List Styles */
+/* --- Request List GÉ CAFE Style --- */
 .request-management-container {
     display: flex;
     flex-direction: column;
-    gap: 26px;
-    background: white;
-    padding: 0;
-}
-
-.toolbar {
-    display: grid;
-    grid-template-columns: minmax(280px, 1fr) 170px;
-    gap: 14px;
-    align-items: center;
-}
-
-.filter-section {
-    margin-bottom: 26px;
-}
-
-.filter-box {
-    display: flex;
-    justify-content: flex-start;
-}
-
-.search-box {
-    display: flex;
-    gap: 8px;
-}
-
-.search-box input {
-    width: 100%;
-    height: 48px;
-    border: 1px solid #dadce0;
-    border-radius: 10px;
-    padding: 0 18px;
-    background: rgba(112, 69, 47, 0.04);
-    font: 500 18px "Montserrat", sans-serif;
-}
-
-.btn-search {
-    height: 48px;
-    border: none;
-    border-radius: 8px;
-    background: rgba(23, 77, 23, 0.87);
-    color: #fff;
-    font: 700 20px "Montserrat", sans-serif;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.btn-search:hover {
-    background: #0000ff;
-}
-
-.filter-box select {
-    height: 48px;
-    border: 1px solid #dadce0;
-    border-radius: 10px;
-    padding: 0 18px;
-    background: rgba(112, 69, 47, 0.04);
-    font: 500 18px "Montserrat", sans-serif;
-    min-width: 200px;
-}
-
-/* Status Tabs */
-.status-tabs {
-    display: flex;
-    gap: 14px;
-}
-
-.tab-btn {
-    height: 48px;
-    border: none;
-    border-radius: 8px;
-    background: rgba(23, 77, 23, 0.87);
-    color: #fff;
-    font: 700 20px "Montserrat", sans-serif;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    padding: 0 24px;
-}
-
-.tab-btn.active {
-    background: rgba(23, 77, 23, 0.87);
-    color: #fff;
-}
-
-.tab-btn:hover:not(.active) {
-    background: #0000ff;
-}
-
-/* Table Container */
-.request-table-card {
+    gap: 20px;
     background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
+    padding: 10px 0; /* Giảm padding để sát lề như thiết kế */
 }
 
-.request-table {
+/* 1. Toolbar: Phân bổ lại vị trí trái/phải */
+.top-control-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.control-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+/* 2. Ô chọn và Tìm kiếm (Bo góc 10px, nền xám nhạt) */
+.ge-select,
+.search-wrapper {
+    height: 48px;
+    border: 1px solid #dadce0;
+    border-radius: 10px;
+    background: rgba(112, 69, 47, 0.04); /* Màu nền hơi nâu nhạt đặc trưng */
+    font: 500 16px "Montserrat", sans-serif;
+    color: #4b2e1f;
+}
+
+.ge-select {
+    min-width: 240px;
+    padding: 0 15px;
+    outline: none;
+    cursor: pointer;
+}
+
+.search-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 15px;
+    flex: 1;
+    max-width: 500px;
+}
+
+.search-wrapper input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    font: 500 16px "Montserrat", sans-serif;
+}
+
+/* 3. Các nút bấm (Xanh lá GÉ CAFE) */
+.btn-search-ge, 
+.btn-create-request {
+    height: 48px;
+    padding: 0 25px;
+    border: none;
+    border-radius: 8px;
+    background: #174d17;
+    color: #fff;
+    font: 700 18px "Montserrat", sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-search-ge:hover, 
+.btn-create-request:hover {
+    background: #0000ff; /* Đổi sang xanh dương khi hover theo yêu cầu cũ của bạn */
+    transform: translateY(-1px);
+}
+
+/* 4. Tabs trạng thái (Nằm riêng một hàng) */
+.status-filter-row {
+    display: flex;
+    gap: 12px;
+    margin: 5px 0;
+}
+
+.status-btn {
+    height: 45px;
+    padding: 0 24px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(23, 77, 23, 0.85); /* Xanh lá hơi trong suốt */
+    color: #fff;
+    font: 700 18px "Montserrat", sans-serif;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.status-btn.active {
+    background: #174d17;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.status-btn:hover:not(.active) {
+    background: #0000ff;
+}
+
+/* 5. Bảng dữ liệu (Đổ bóng và Header xanh) */
+.ge-table-card {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.ge-main-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.request-table th {
-    background: rgba(23, 77, 23, 0.84);
+.ge-main-table th {
+    background: rgba(23, 77, 23, 0.85);
     color: #fff;
-    font: 700 22px "Montserrat", sans-serif;
-    padding: 16px 14px;
+    padding: 18px;
     text-align: center;
+    font: 700 20px "Montserrat", sans-serif;
 }
 
-.request-table tbody tr:nth-child(odd) {
+.ge-main-table td {
+    padding: 20px 15px;
+    text-align: center;
+    font: 500 18px "Montserrat", sans-serif;
+    color: #1a1a1a;
+    border: none;
+}
+
+/* Màu xen kẽ dòng (Zebra) giống ảnh */
+.ge-main-table tbody tr:nth-child(odd) {
     background: #ebe7e4;
 }
 
-.request-table tbody tr:nth-child(even) {
-    background: rgba(243, 240, 238, 0.93);
+.ge-main-table tbody tr:nth-child(even) {
+    background: rgba(243, 240, 238, 0.95);
 }
 
-.request-table td {
-    padding: 22px 14px;
-    text-align: center;
-    font: 500 20px "Montserrat", sans-serif;
-    color: #1a1a1a;
-    vertical-align: middle;
-}
+/* 6. Badge Trạng thái (Chỉ hiện chữ có màu) */
+.stt-waiting { color: #C58B00; font-weight: 700; }
+.stt-approved { color: #008000; font-weight: 700; }
+.stt-rejected { color: #E53935; font-weight: 700; }
 
-/* Status Badges */
-.status-badge {
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-weight: 700;
-    font-size: 14px;
-}
-
-.status-badge.cho-duyet {
-    color: #C58B00;
-}
-
-.status-badge.da-duyet {
-    color: #008000;
-}
-
-.status-badge.tu-choi {
-    color: #E53935;
-}
-
-/* Action Buttons */
-.action-cell {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-}
-
-.btn-view, .btn-edit, .btn-delete {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 1px solid #c7b4aa;
+/* 7. Nút Hành động (Icon hoặc chữ Xem chi tiết) */
+.btn-detail-ge {
     background: #fff;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    color: #4b2e1f;
+    border: 1px solid #c7b4aa;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font: 600 14px "Montserrat", sans-serif;
     cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
-    padding: 0;
+    transition: 0.2s;
 }
 
-.btn-view img, .btn-edit img, .btn-delete img {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-}
-
-.btn-view:hover {
-    transform: translateY(-1px);
-    background: #ede4dc;
-}
-
-.btn-edit:hover {
-    transform: translateY(-1px);
-    background: #e6f1e6;
+.btn-detail-ge:hover {
+    background: #174d17;
+    color: #fff;
     border-color: #174d17;
-}
-
-.btn-delete:hover {
-    transform: translateY(-1px);
-    background: #f3e7e4;
-    border-color: #8d6e63;
-}
-
-.btn-edit:disabled, .btn-delete:disabled {
-    background: #f5f5f5;
-    border-color: #dddddd;
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-.btn-edit:disabled:hover, .btn-delete:disabled:hover {
-    transform: none;
-    background: #f5f5f5;
-    border-color: #dddddd;
-}
-
-/* Primary Button */
-.btn-primary {
-    padding: 12px 24px;
-    background: #174D17;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
-    background: #0F3D0F;
-}
-
-.btn-secondary {
-    padding: 12px 24px;
-    background: #F2F2F2;
-    color: black;
-    border: 1px solid #DADCE0;
-    border-radius: 8px;
-    font-size: 16px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-secondary:hover {
-    background: #E0E0E0;
-}
-
-.btn-search {
-    padding: 12px 24px;
-    background: #174D17;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.btn-approve {
-    padding: 14px 24px;
-    background: #3BB54A;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    cursor: pointer;
-    flex: 1;
-}
-
-.btn-reject {
-    padding: 14px 24px;
-    background: #E53935;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    cursor: pointer;
-    flex: 1;
-}
-
-.btn-danger {
-    padding: 12px 24px;
-    background: #E53935;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-/* Popup Overlay */
-.popup-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-
-.popup-content {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.20);
-    max-width: 600px;
-    width: 90%;
-    max-height: 90vh;
-    overflow-y: auto;
-}
-
-.popup-header {
-    background: #174D17;
-    padding: 16px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.popup-header h3 {
-    color: white;
-    font-size: 22px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    margin: 0;
-}
-
-.btn-close {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 28px;
-    cursor: pointer;
-    padding: 0;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.btn-close:hover {
-    opacity: 0.8;
-}
-
-/* Form Styles */
-form {
-    padding: 24px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-    position: relative;
-}
-
-.form-group label {
-    display: block;
-    color: #333333;
-    font-size: 16px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-
-.form-group .required {
-    color: #E53935;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1px solid #DADCE0;
-    border-radius: 6px;
-    font-size: 16px;
-    font-family: 'Montserrat', sans-serif;
-    box-sizing: border-box;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #174D17;
-}
-
-.form-group textarea {
-    resize: vertical;
-}
-
-/* Error Messages - Absolute positioning to not push layout */
-.error-message {
-    display: none;
-    color: #E53935;
-    font-size: 13px;
-    font-family: 'Montserrat', sans-serif;
-    margin-top: 4px;
-    position: absolute;
-    left: 0;
-    bottom: -20px;
-}
-
-.form-group {
-    padding-bottom: 20px;
-}
-
-.form-actions {
-    display: flex;
-    gap: 16px;
-    justify-content: flex-end;
-    margin-top: 24px;
-    padding-top: 20px;
-    border-top: 1px solid #EEEEEE;
-}
-
-/* Detail Popup */
-.detail-popup .detail-body {
-    padding: 20px;
-}
-
-.employee-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #DDDDDD;
-    margin-bottom: 20px;
-}
-
-.employee-info .avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 30px;
-    border: 2px solid #70452F;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 30px;
-}
-
-.employee-info .info h4 {
-    color: black;
-    font-size: 20px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    margin: 0 0 4px 0;
-}
-
-.employee-info .info p {
-    color: #666666;
-    font-size: 16px;
-    font-family: 'Montserrat', sans-serif;
-    margin: 0;
-}
-
-.detail-row {
-    display: flex;
-    padding: 12px 0;
-    border-bottom: 1px solid #EEEEEE;
-}
-
-.detail-row:nth-child(even) {
-    background: #F3F0EE;
-    margin: 0 -20px;
-    padding: 12px 20px;
-}
-
-.detail-row .label {
-    width: 180px;
-    color: #333333;
-    font-size: 16px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-}
-
-.detail-row .value {
-    flex: 1;
-    color: #333333;
-    font-size: 16px;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.detail-row .value.status-cho-duyet {
-    color: #C58B00;
-    font-weight: 700;
-}
-
-.detail-row .value.status-da-duyet {
-    color: #008000;
-    font-weight: 700;
-}
-
-.detail-row .value.status-tu-choi {
-    color: #E53935;
-    font-weight: 700;
-}
-
-.popup-footer {
-    padding: 20px;
-    display: flex;
-    gap: 20px;
-    border-top: 1px solid #EEEEEE;
-}
-
-/* Confirm Popup */
-.confirm-popup .popup-body {
-    padding: 30px 20px;
-    text-align: center;
-}
-
-.confirm-popup .popup-body p {
-    font-size: 18px;
-    color: #333333;
-    margin: 0;
-}
-
-.confirm-popup .popup-footer {
-    justify-content: center;
-}
-
-/* Toast Message */
-.toast {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 16px 24px;
-    background: #174D17;
-    color: white;
-    border-radius: 8px;
-    font-size: 16px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    z-index: 2000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    animation: slideIn 0.3s ease;
-}
-
-.toast.error {
-    background: #E53935;
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .toolbar {
+    .top-control-bar {
         flex-direction: column;
         align-items: stretch;
     }
-
-    .search-box {
-        width: 100%;
-    }
-
-    .status-tabs {
-        flex-wrap: wrap;
-    }
-
-    .action-cell {
-        flex-direction: column;
-        gap: 4px;
-    }
-
-    .btn-view, .btn-edit, .btn-delete {
-        width: 32px;
-        height: 32px;
-    }
-
-    .btn-view img, .btn-edit img, .btn-delete img {
-        width: 16px;
-        height: 16px;
+    .status-filter-row {
+        overflow-x: auto;
+        padding-bottom: 10px;
     }
 }
