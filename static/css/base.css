@@ -18,7 +18,7 @@ body {
     padding: 0 20px;
     height: 88px;
     background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Giảm độ đậm shadow cho tinh tế */
 }
 
 .header-left, .header-right {
@@ -33,18 +33,18 @@ body {
 }
 
 .header-left .brand-name {
-    font-family: "Montserrat-SemiBold", Helvetica, sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-weight: 600;
     color: #4e342e;
-    font-size: 29px;
+    font-size: 28px;
 }
 
 .header-right .welcome-message {
-    font-family: "Montserrat-SemiBoldItalic", Helvetica, sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-weight: 600;
     font-style: italic;
     color: #000000;
-    font-size: 24px;
+    font-size: 20px; /* Thu nhỏ lại một chút cho cân đối */
     margin-right: 15px;
 }
 
@@ -53,31 +53,32 @@ body {
     width: 54px;
     border-radius: 50%;
     cursor: pointer;
+    border: 2px solid #eee;
+    transition: border-color 0.3s;
+}
+
+.header-right .user-avatar:hover {
+    border-color: #174d17;
 }
 
 /* User Dropdown Styles */
 .user-dropdown {
     position: relative;
     display: inline-block;
-    cursor: pointer;
-}
-
-.user-dropdown .user-avatar {
-    pointer-events: auto;
 }
 
 .user-dropdown-content {
     display: none;
     position: absolute;
-    top: calc(100% + 5px);
+    top: calc(100% + 10px);
     right: 0;
     background-color: #ffffff;
-    min-width: 150px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    min-width: 180px;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
     z-index: 9999;
-    border-radius: 5px;
+    border-radius: 8px;
     overflow: hidden;
-    border: 1px solid #ddd;
+    border: 1px solid #eee;
 }
 
 .user-dropdown-content.show {
@@ -86,19 +87,24 @@ body {
 
 .user-dropdown-content a {
     color: #4B2E1F;
-    padding: 12px 16px;
+    padding: 12px 18px;
     text-decoration: none;
     display: block;
-    font-size: 16px;
-    font-family: "Montserrat-SemiBold", Helvetica, sans-serif;
-    text-align: left;
-    transition: background-color 0.3s, color 0.3s;
-    pointer-events: auto;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.2s ease;
 }
 
+/* Hover: Màu xanh dương rất nhạt, chữ xanh đậm */
 .user-dropdown-content a:hover {
-    background-color: #0000FF;
-    color: #ffffff;
+    background-color: #eef4ff;
+    color: #0056b3;
+}
+
+/* Bấm vào (Active): Màu nhạt đi */
+.user-dropdown-content a:active {
+    background-color: #f8fbff;
+    transform: scale(0.98);
 }
 
 /* Navigation Bar Styles */
@@ -106,32 +112,38 @@ body {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 84px;
+    height: 70px; /* Thu nhỏ chiều cao menu cho gọn */
     background-color: #174d17;
     color: #ffffff;
 }
 
 .nav-item {
-    font-family: "Montserrat-Bold", Helvetica, sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 18px; /* Giảm size chữ cho thanh thoát */
     text-decoration: none;
     color: #ffffff;
-    padding: 0 15px;
+    padding: 0 25px;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    text-align: center;
-    transition: background-color 0.3s; /* Smooth transition */
+    transition: all 0.2s ease;
 }
 
+/* Hover: Màu xanh lá sáng hơn (Tone-sur-tone) */
 .nav-item:hover {
-    background-color: #0000FF; /* New hover color */
+    background-color: #2e6b2e;
 }
 
-/* Dropdown Styles */
+/* Bấm vào: Nhạt đi */
+.nav-item:active {
+    background-color: #438443;
+    opacity: 0.9;
+}
+
+/* Dropdown Menu Styles (Menu con) */
 .dropdown {
     cursor: pointer;
 }
@@ -141,31 +153,35 @@ body {
     position: absolute;
     top: 100%;
     left: 0;
-    right: 0;
-    width: auto;
-    min-width: auto;
+    min-width: 220px;
     background-color: #ffffff;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    border-radius: 0 0 5px 5px;
-    padding: 5px 0;
-    box-sizing: border-box;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.15);
+    z-index: 1000;
+    border-radius: 0 0 8px 8px;
+    padding: 8px 0;
 }
 
 .dropdown-content a {
-    color: #4B2E1F; /* New text color */
-    padding: 12px 16px;
+    color: #4B2E1F;
+    padding: 12px 20px;
     text-decoration: none;
     display: block;
-    font-size: 18px;
-    font-family: "Montserrat-SemiBold", Helvetica, sans-serif;
-    text-align: left;
-    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.2s ease;
 }
 
+/* Hover Menu con: Màu xanh pastel nhẹ nhàng */
 .dropdown-content a:hover {
-    background-color: #0000FF; /* New hover color */
-    color: #ffffff; /* Change text to white on hover */
+    background-color: #f0f7ff;
+    color: #0056b3;
+    padding-left: 25px; /* Hiệu ứng đẩy nhẹ sang phải */
+}
+
+/* Bấm vào Menu con: Màu nhạt đi */
+.dropdown-content a:active {
+    background-color: #f9fcff;
+    opacity: 0.8;
 }
 
 .dropdown:hover .dropdown-content {
@@ -175,5 +191,5 @@ body {
 /* Main Content Area */
 .main-content {
     flex-grow: 1;
-    padding: 20px;
+    padding: 30px;
 }

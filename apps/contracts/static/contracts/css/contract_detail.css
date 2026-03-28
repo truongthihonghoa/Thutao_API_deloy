@@ -1,139 +1,107 @@
-/* Contract Detail Modal Styling */
+/* Nền xám bao quanh modal */
 .contract-detail-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.55);
-    display: none;
-    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    display: none; /* Đổi thành flex khi test */
     justify-content: center;
-    z-index: 2100;
+    align-items: flex-start;
+    padding: 40px 0;
+    z-index: 2500;
+    overflow-y: auto;
 }
 
 .contract-detail-modal {
-    width: min(820px, calc(100vw - 32px));
-    background: #fff;
-    border-radius: 10px;
+    width: min(850px, 95%);
+    background: #f4f4f4;
+    border-radius: 6px;
     overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-.contract-detail-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 22px;
+/* Header xanh lá */
+.contract-top-header {
     background: #174d17;
-    color: #fff;
-}
-
-.contract-detail-header h3 {
-    margin: 0;
-    font: 700 25px "Montserrat", sans-serif;
-}
-
-.contract-detail-close {
-    border: none;
-    background: transparent;
-    color: #fff;
-    font-size: 38px;
-    line-height: 1;
-    cursor: pointer;
-}
-
-.contract-detail-employee {
+    color: white;
+    padding: 12px 20px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 16px;
-    padding: 22px;
+}
+
+.top-title { font-size: 16px; font-weight: 500; }
+
+.top-close-btn {
+    background: transparent; border: none; color: white;
+    font-size: 24px; cursor: pointer;
+}
+
+/* Thanh công cụ trắng */
+.contract-tool-bar {
+    background: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid #ddd;
+    font-size: 13px;
 }
 
-.contract-avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 2px solid #70452f;
-    color: #70452f;
-    font: 700 20px "Montserrat", sans-serif;
+.btn-print {
+    padding: 5px 12px;
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+/* Tờ giấy trắng */
+.contract-paper {
+    background: white;
+    width: 90%;
+    margin: 25px auto;
+    padding: 50px 60px;
+    font-family: "Times New Roman", Times, serif;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.paper-header { text-align: center; margin-bottom: 30px; }
+.header-line { width: 120px; height: 1px; background: black; margin: 10px auto; }
+.paper-title { margin: 20px 0 5px; font-weight: bold; }
+
+.section-label { display: block; margin: 20px 0 10px; text-decoration: underline; }
+
+/* Dòng thông tin có chấm chấm */
+.contract-line {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: baseline;
+    margin-bottom: 8px;
 }
 
-.contract-employee-copy {
+.contract-line span { font-weight: bold; min-width: fit-content; }
+
+.contract-line p, .contract-line strong {
+    flex: 1;
+    border-bottom: 1px dotted #aaa;
+    margin: 0;
+    padding-left: 10px;
+}
+
+.text-success { color: #28a745; border-bottom: none !important; }
+
+/* Chữ ký */
+.paper-footer {
     display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.contract-employee-copy strong {
-    font: 600 23px "Montserrat", sans-serif;
-}
-
-.contract-employee-copy span {
-    color: #666;
-    font: 400 18px "Montserrat", sans-serif;
-}
-
-.contract-detail-body {
-    padding: 0 22px 18px;
-}
-
-.contract-detail-row {
-    display: grid;
-    grid-template-columns: 240px 1fr;
-    gap: 12px;
-    padding: 16px 10px;
-    border-bottom: 1px solid #eee;
-}
-
-.contract-detail-row.alt {
-    background: #f3f0ee;
-}
-
-.contract-detail-row span,
-.contract-detail-row strong {
-    font-size: 23px;
-    line-height: 1.35;
-}
-
-.contract-detail-row span {
-    color: #333;
-    font-weight: 600;
-}
-
-.contract-detail-row strong {
-    color: #333;
-    font-weight: 400;
-}
-
-.contract-detail-section {
-    margin-top: 20px;
-    padding: 20px;
-    background: #f8f9fa;
-    border-radius: 8px;
-}
-
-.contract-detail-section h4 {
-    margin: 0 0 15px 0;
-    font: 600 18px "Montserrat", sans-serif;
-    color: #174d17;
+    justify-content: space-between;
+    margin-top: 50px;
     text-align: center;
 }
 
-.total-row {
-    background: #e8f5e8;
-    border: 1px solid #4caf50;
-    border-radius: 4px;
-}
+.sig-name { margin-top: 70px; font-weight: bold; }
 
-.total-row strong {
-    color: #2e7d32;
-    font-size: 18px;
-}
-
-@media (max-width: 720px) {
-    .contract-detail-row {
-        grid-template-columns: 1fr;
-    }
+/* CSS khi In */
+@media print {
+    body * { visibility: hidden; }
+    .contract-paper, .contract-paper * { visibility: visible; }
+    .contract-paper { position: absolute; left: 0; top: 0; width: 100%; margin: 0; box-shadow: none; }
 }

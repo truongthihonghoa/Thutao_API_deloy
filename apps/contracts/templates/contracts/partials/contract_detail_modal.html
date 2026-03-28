@@ -1,66 +1,71 @@
 <div class="contract-detail-overlay" id="contract-detail-popup">
     <div class="contract-detail-modal">
-        <div class="contract-detail-header">
-            <h3>Chi tiết hợp đồng</h3>
-            <button type="button" class="contract-detail-close" id="contract-detail-close-btn">&times;</button>
+        <div class="contract-top-header">
+            <div class="top-title">
+                <i class="fa fa-file-text"></i> Chi tiết hợp đồng lao động
+            </div>
+            <button type="button" class="top-close-btn" id="contract-detail-close-btn">&times;</button>
         </div>
-        <div class="contract-detail-employee">
-            <div class="contract-avatar">HD</div>
-            <div class="contract-employee-copy">
-                <strong id="detail-employee-name">Nguyễn Văn An</strong>
-                <span id="detail-employee-code">Mã nhân viên - NV00001</span>
+
+        <div class="contract-tool-bar">
+            <div class="tool-left">
+                <button class="btn-print" onclick="window.print()">
+                    <i class="fa fa-print"></i> In hợp đồng
+                </button>
+                <span class="contract-code">Mã HĐ: #HD2026-001</span>
+            </div>
+            <div class="tool-right">
+                <span>Chế độ: <strong>Chỉ xem (Read-only)</strong></span>
             </div>
         </div>
-        <div class="contract-detail-body">
-            <div class="contract-detail-row">
-                <span>Mã hợp đồng:</span>
-                <strong id="detail-contract-id">HĐ00001</strong>
+
+        <div class="contract-paper">
+            <div class="paper-header">
+                <h4>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</h4>
+                <p>Độc lập - Tự do - Hạnh phúc</p>
+                <div class="header-line"></div>
+
+                <h2 class="paper-title">HỢP ĐỒNG LAO ĐỘNG</h2>
+                <p class="paper-no">(Số: 2026/HĐLĐ-GECAFE)</p>
             </div>
-            <div class="contract-detail-row alt">
-                <span>Loại hợp đồng:</span>
-                <strong id="detail-contract-type">Part-time</strong>
-            </div>
-            <div class="contract-detail-row">
-                <span>Chức vụ:</span>
-                <strong id="detail-position">Pha chế</strong>
-            </div>
-            <div class="contract-detail-row alt">
-                <span>Trạng thái:</span>
-                <strong id="detail-trang-thai">Đang hiệu lực</strong>
-            </div>
-            <div class="contract-detail-row">
-                <span>Ngày bắt đầu:</span>
-                <strong id="detail-start-date">25/12/2025</strong>
-            </div>
-            <div class="contract-detail-row alt">
-                <span>Ngày kết thúc:</span>
-                <strong id="detail-end-date">25/12/2026</strong>
-            </div>
-            <div class="contract-detail-section">
-                <h4>THÔNG TIN LƯƠNG</h4>
-                <div class="contract-detail-row">
-                    <span>Lương cơ bản:</span>
-                    <strong id="detail-luong-co-ban">0</strong>
+
+            <div class="paper-body">
+                <p>Hôm nay, ngày 01 tháng 01 năm 2026, tại GÉ CAFE, chúng tôi gồm:</p>
+
+                <div class="section">
+                    <strong class="section-label">BÊN A: NGƯỜI SỬ DỤNG LAO ĐỘNG</strong>
+                    <div class="contract-line"><span>Đại diện bởi Ông/Bà:</span> <p>Trương Thị Hồng Hoa</p></div>
+                    <div class="contract-line"><span>Chức vụ:</span> <p>Quản lý GÉ CAFE - Chi nhánh Lê Hồng Phong</p></div>
                 </div>
-                <div class="contract-detail-row alt">
-                    <span>Lương/giờ:</span>
-                    <strong id="detail-luong-theo-gio">2.000.000</strong>
+
+                <div class="section">
+                    <strong class="section-label">BÊN B: NGƯỜI LAO ĐỘNG</strong>
+                    <div class="contract-line"><span>Họ và tên:</span> <p>NGUYỄN VĂN AN</p></div>
+                    <div class="contract-line"><span>Mã nhân viên:</span> <p>NV00001</p></div>
+                    <div class="contract-line"><span>Ngày sinh:</span> <p>15/05/1998</p></div>
                 </div>
-                <div class="contract-detail-row">
-                    <span>Số giờ làm:</span>
-                    <strong id="detail-so-gio-lam">0</strong>
+
+                <div class="section">
+                    <strong class="section-label">ĐIỀU KHOẢN HỢP ĐỒNG</strong>
+                    <div class="contract-line"><span>1. Loại hợp đồng:</span> <p>Full time</p></div>
+                    <div class="contract-line"><span>2. Ngày bắt đầu:</span> <p>25/12/2025</p></div>
+                    <div class="contract-line"><span>3. Ngày kết thúc:</span> <p>25/12/2026</p></div>
+                    <div class="contract-line"><span>4. Lương cố định:</span> <p>4,000,000 VNĐ (Bốn triệu đồng chẵn)</p></div>
+                    <div class="contract-line"><span>5. Chức vụ:</span> <p>Pha chế</p></div>
+                    <div class="contract-line"><span>6. Trạng thái:</span> <strong class="text-success">CÓ HIỆU LỰC</strong></div>
                 </div>
-                <div class="contract-detail-row alt">
-                    <span>Thưởng:</span>
-                    <strong id="detail-thuong">0</strong>
+            </div>
+
+            <div class="paper-footer">
+                <div class="sig-box">
+                    <strong>ĐẠI DIỆN BÊN A</strong>
+                    <p>(Đã ký)</p>
+                    <div class="sig-name">Nguyễn Văn An</div>
                 </div>
-                <div class="contract-detail-row">
-                    <span>Phạt:</span>
-                    <strong id="detail-phat">0</strong>
-                </div>
-                <div class="contract-detail-row total-row">
-                    <span>Tổng lương:</span>
-                    <strong id="detail-tong-luong">2.000.000</strong>
+                <div class="sig-box">
+                    <strong>NGƯỜI LAO ĐỘNG (BÊN B)</strong>
+                    <p>(Đã ký)</p>
+                    <div class="sig-name">Nguyễn Văn An</div>
                 </div>
             </div>
         </div>
