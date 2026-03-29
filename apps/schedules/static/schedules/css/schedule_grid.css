@@ -1,0 +1,242 @@
+/* schedule_grid.css */
+:root {
+    --primary-color: #007bff;
+    --border-color: #e1e4e8;
+    --text-color: #24292e;
+    --text-muted-color: #586069;
+    --bg-hover-color: #f6f8fa;
+    --bg-disabled-color: #f9f9f9;
+}
+
+.schedule-page {
+    padding: 20px;
+}
+
+/* Toolbar */
+.schedule-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filter-buttons .toolbar-btn {
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.filter-buttons .toolbar-btn.active {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
+
+.toolbar-btn-add {
+    background-color: #28a745;
+    color: #fff;
+}
+
+/* Schedule Grid */
+.schedule-grid-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    min-width: 900px;
+}
+
+.grid-header {
+    font-weight: 600;
+    text-align: center;
+    padding: 10px;
+    background-color: #f7f7f7;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.grid-header .date-span {
+    font-weight: 400;
+    font-size: 12px;
+    color: var(--text-muted-color);
+}
+
+.shift-cell {
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.shift-cell:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+.shift-cell .shift-name {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.shift-cell .employee-count-badge {
+    align-self: flex-end;
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.shift-cell .employee-count-badge.zero {
+    background-color: #e0e0e0;
+    color: var(--text-muted-color);
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none; /* Initially hidden */
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.show {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.show .modal-content {
+    transform: scale(1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--text-muted-color);
+}
+
+.modal-body {
+    padding: 24px;
+    overflow-y: auto;
+}
+
+.shift-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+    font-size: 14px;
+}
+
+.employee-list-title {
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.employee-table-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+}
+
+.employee-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.employee-table th,
+.employee-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 14px;
+}
+
+.employee-table th {
+    background-color: #f7f7f7;
+    font-weight: 600;
+}
+
+.employee-table tr.is-sent {
+    background-color: var(--bg-disabled-color);
+    opacity: 0.6;
+    color: var(--text-muted-color);
+}
+
+.employee-table tr.is-sent input[type="checkbox"] {
+    cursor: not-allowed;
+}
+
+.modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.modal-btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.modal-btn.primary {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
