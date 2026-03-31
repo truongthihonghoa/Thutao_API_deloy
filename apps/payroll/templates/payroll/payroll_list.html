@@ -1,304 +1,298 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Quản lý lương - {{ block.super }}{% endblock %}
-
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'payroll/css/payroll_list.css' %}?v=4.0">
+<link rel="stylesheet" href="{% static 'payroll/css/payroll_list.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="mn-hnh-trang-lng-ch-duyt">
-  <div class="background">
-    <div class="container">
-      <div class="rounded-rectangle">
-        <select id="month-select" class="month-dropdown">
-          <option value="">-- Chọn kỳ lương --</option>
-          <option value="2026-01">01/2026</option>
-          <option value="2026-02">02/2026</option>
-          <option value="2026-03">03/2026</option>
+<div class="request-management-container">
+  <!-- Thanh công cụ: Tìm kiếm và Các nút chức năng - Tăng gap hàng lên 35px -->
+  <form method="get" action="." class="top-control-bar" style="display: flex; flex-direction: column; gap: 35px;">
+    <!-- Hàng 1: Tìm kiếm và các nút chính -->
+    <div class="toolbar-row-top">
+      <div class="control-left">
+        <div class="search-wrapper">
+          <input type="text" name="q" class="search-input-ge" placeholder="Tìm kiếm nhân viên hoặc mã lương..." value="{{ request.GET.q|default:'' }}">
+        </div>
+        <button class="btn-search-ge">Tìm kiếm</button>
+      </div>
+      <div class="control-right">
+        <button type="button" class="btn-create-request" onclick="openSalaryModal()">Tính lương</button>
+      </div>
+    </div>
+
+
+    <!-- Hàng 2: Chi nhánh và Kỳ lương -->
+    <div class="toolbar-row" style="display: flex; justify-content: flex-start; align-items: center; width: 100%; gap: 20px;">
+      <div class="dropdown-wrapper">
+        <select class="branch-dropdown-ge" name="branch" onchange="this.form.submit()"
+                style="background: white; font-size: 18px; padding: 10px 15px; border-radius: 6px; border: 1px solid #DADCE0; min-width: 200px; cursor: pointer;">
+          {% for branch in branches %}
+            <option value="{{ branch.id }}" {% if request.GET.branch == branch.id|slugify or not request.GET.branch and forloop.first %}selected{% endif %}>{{ branch.ten_chi_nhanh }}</option>
+          {% endfor %}
         </select>
       </div>
-      <div class="inside-icon-container">
-        <div class="frame">
-          <div class="vector_04"></div>
-        </div>
+      <div class="dropdown-wrapper">
+        <select class="period-dropdown-ge" name="month" onchange="this.form.submit()"
+                style="background: white; font-size: 18px; padding: 10px 15px; border-radius: 6px; border: 1px solid #DADCE0; min-width: 120px; cursor: pointer;">
+          <option value="">-- Tháng --</option>
+          <option value="01" {% if request.GET.month == "01" %}selected{% endif %}>Tháng 01</option>
+          <option value="02" {% if request.GET.month == "02" %}selected{% endif %}>Tháng 02</option>
+          <option value="03" {% if request.GET.month == "03" %}selected{% endif %}>Tháng 03</option>
+          <option value="04" {% if request.GET.month == "04" %}selected{% endif %}>Tháng 04</option>
+          <option value="05" {% if request.GET.month == "05" %}selected{% endif %}>Tháng 05</option>
+          <option value="06" {% if request.GET.month == "06" %}selected{% endif %}>Tháng 06</option>
+          <option value="07" {% if request.GET.month == "07" %}selected{% endif %}>Tháng 07</option>
+          <option value="08" {% if request.GET.month == "08" %}selected{% endif %}>Tháng 08</option>
+          <option value="09" {% if request.GET.month == "09" %}selected{% endif %}>Tháng 09</option>
+          <option value="10" {% if request.GET.month == "10" %}selected{% endif %}>Tháng 10</option>
+          <option value="11" {% if request.GET.month == "11" %}selected{% endif %}>Tháng 11</option>
+          <option value="12" {% if request.GET.month == "12" %}selected{% endif %}>Tháng 12</option>
+        </select>
       </div>
-      <div class="text-012026"><span class="f12026_span" id="display-month">01/2026</span></div>
-      <div class="tm-kim_01">
-        <div class="frame-26">
-          <div class="material-symbolssearch">
-            <div class="vector_05"></div>
-          </div>
-          <input type="text" id="search-input" class="tm-kim" placeholder="Tìm kiếm">
-        </div>
-      </div>
-      <button type="button" id="btn-search" class="btn-tm-kim">
-        <div><span class="text_span">Tìm kiếm</span></div>
-      </button>
-      <button type="button" id="btn-calculate" class="btn-tm-kim_01">
-        <div><span class="text_01_span">Tính lương</span></div>
-      </button>
-      <button type="button" id="btn-export-main" class="btn-tm-kim_02">
-        <div><span class="text_02_span">In/Xuất</span></div>
-      </button>
-    </div>
-    <div class="container_01">
-      <div class="background_01 active" data-tab="cho-duyet">
-        <div class="ang-ch-duyt"><span class="angchduyt_span">Đang chờ duyệt</span></div>
-      </div>
-      <div class="background_02" data-tab="da-duyet">
-        <div class="text--duyt"><span class="duyt_span">Đã duyệt</span></div>
-      </div>
-      <div class="background_03" data-tab="tu-choi">
-        <div class="text--t-chi"><span class="tchi_span">Đã từ chối</span></div>
+      <div class="dropdown-wrapper">
+        <select class="period-dropdown-ge" name="year" onchange="this.form.submit()"
+                style="background: white; font-size: 18px; padding: 10px 15px; border-radius: 6px; border: 1px solid #DADCE0; min-width: 120px; cursor: pointer;">
+          <option value="">-- Năm --</option>
+          <option value="2024" {% if request.GET.year == "2024" %}selected{% endif %}>2024</option>
+          <option value="2025" {% if request.GET.year == "2025" %}selected{% endif %}>2025</option>
+          <option value="2026" {% if request.GET.year == "2026" %}selected{% endif %}>2026</option>
+        </select>
       </div>
     </div>
-    <div class="table">
-      <div class="header">
-        <div class="row">
-          <div class="cell">
-            <div class="stt"><span class="stt_span">STT</span></div>
-          </div>
-          <div class="cell_01">
-            <div class="m-lng"><span class="mlng_span_01">Mã </span><span class="mlng_span_02">lương</span></div>
-          </div>
-          <div class="cell_02">
-            <div class="m-nv"><span class="mnv_span">Mã NV</span></div>
-          </div>
-          <div class="cell_03">
-            <div class="tn-nhn-vin"><span class="tnnhnvin_span">Tên nhân viên</span></div>
-          </div>
-          <div class="cell_04">
-            <div class="thng"><span class="thng_span">Tháng</span></div>
-          </div>
-          <div class="cell_05">
-            <div class="lng-c-bn"><span class="lngcbn_span">Lương cơ bản</span></div>
-          </div>
-          <div class="cell_06">
-            <div class="thng_01"><span class="thng_span_01">Thưởng</span></div>
-          </div>
-          <div class="cell_07">
-            <div class="pht"><span class="pht_span">Phạt</span></div>
-          </div>
-          <div class="cell_08">
-            <div class="lng-thc-lnh"><span class="lngthclnh_span">Lương thực lãnh</span></div>
-          </div>
-          <div class="cell_09">
-            <div class="trng-thi"><span class="trngthi_span">Trạng thái</span></div>
-          </div>
-          <div class="cell_action">
-            <div class="hanh-dong"><span class="hanhdong_span">Hành động</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="body" id="payroll-table-body">
-        {% for row in payroll_rows %}
-        <div class="row_0{{ forloop.counter }}" data-employee-id="{{ row.ma_nv }}" data-status="{{ row.trang_thai_key }}">
-          <div class="data"><div class="text-{{ forloop.counter }}"><span class="f_span">{{ forloop.counter }}</span></div></div>
-          <div class="data_01"><div class="ml000{{ forloop.counter }}"><span class="ml000{{ forloop.counter }}_span">{{ row.ma_luong }}</span></div></div>
-          <div class="data_02"><div class="nv000{{ forloop.counter }}"><span class="nv000{{ forloop.counter }}_span">{{ row.ma_nv }}</span></div></div>
-          <div class="data_03"><div><span>{{ row.ten_nv }}</span></div></div>
-          <div class="data_04"><div><span>{{ row.thang }}</span></div></div>
-          <div class="data_05">
-            <div class="luong-cb">{{ row.luong_co_ban }}</div>
-            <div class="luong-gio-h">({{ row.luong_gio }}/giờ)</div>
-          </div>
-          <div class="data_06"><div>{{ row.thuong }}</div></div>
-          <div class="data_07"><div>{{ row.phat }}</div></div>
-          <div class="data_08"><div>{{ row.thuc_linh }}</div></div>
-          <div class="data_09"><div class="ch-duyt"><span class="chduyt_span{% if row.trang_thai_key == 'da-duyet' %} da-duyet{% endif %}">{{ row.trang_thai }}</span></div></div>
-          <div class="data_action">
-            <button type="button" class="btn-edit" data-employee-id="{{ row.ma_nv }}" title="Sửa"{% if row.trang_thai_key == 'da-duyet' %} disabled{% endif %}>
-                <img src="{% static 'images/edit_icon.png' %}" alt="Sửa">
-            </button>
-            <button type="button" class="btn-delete" data-employee-id="{{ row.ma_nv }}" title="Xóa"{% if row.trang_thai_key == 'da-duyet' %} disabled{% endif %}>
-                <img src="{% static 'images/delete_icon.png' %}" alt="Xóa">
-            </button>
-            <button type="button" class="btn-approve" data-employee-id="{{ row.ma_nv }}" title="Duyệt"{% if row.trang_thai_key == 'da-duyet' %} disabled{% endif %}>
-                <img src="{% static 'images/search_icon.png' %}" alt="Duyệt">
-            </button>
-            <button type="button" class="btn-export-row" data-employee-id="{{ row.ma_nv }}" title="Xuất">
-                <img src="{% static 'images/edit_icon.png' %}" alt="Xuất">
-            </button>
-          </div>
-        </div>
+  </form>
+  <div class="filter-status-row">
+    <button class="btn-filter active">Đang chờ duyệt</button>
+    <button class="btn-filter">Đã duyệt</button>
+    <button class="btn-filter">Đã từ chối</button>
+  </div>
+
+  <div class="ge-table-card">
+    <table class="ge-main-table">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Mã lương</th>
+          <th>Tên nhân viên</th>
+          <th>Kỳ lương</th>
+          <th>Lương cơ bản</th>
+          <th>Lương theo giờ</th>
+          <th>Số giờ làm</th>
+          <th>Thưởng</th>
+          <th>Phạt</th>
+          <th>Tổng lương</th>
+          <th>Trạng thái</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for payroll in payroll_rows %}
+        <tr data-status="{{ payroll.trang_thai_key|default:'cho-duyet' }}" data-ma-luong="{{ payroll.ma_luong }}" data-ma-nv="{{ payroll.ma_nv }}">
+          <td>{{ forloop.counter }}</td>
+          <td>{{ payroll.ma_luong }}</td>
+          <td>{{ payroll.ten_nv }}</td>
+          <td>{{ payroll.ky_luong }}</td>
+          <td>{{ payroll.luong_co_ban }}</td>
+          <td>{{ payroll.luong_theo_gio }}</td>
+          <td>{{ payroll.so_gio_lam }}</td>
+          <td>{{ payroll.thuong }}</td>
+          <td>{{ payroll.phat }}</td>
+          <td><strong>{{ payroll.tong_luong }}</strong></td>
+          <td>
+            <div class="status-badge {{ payroll.trang_thai_key|default:'cho-duyet' }}">
+                {% if payroll.trang_thai_key == 'da-duyet' %}
+                    <i class="fas fa-circle-check"></i> {{ payroll.trang_thai }}
+                {% elif payroll.trang_thai_key == 'da-tu-choi' %}
+                    <i class="fas fa-circle-xmark"></i> {{ payroll.trang_thai }}
+                {% else %}
+                    <button class="btn-action-ge btn-approve-ge" title="Duyệt"><i class="fas fa-check"></i></button>
+                    <button class="btn-action-ge btn-reject-ge" title="Từ chối"><i class="fas fa-times"></i></button>
+                {% endif %}
+            </div>
+          </td>
+          <td>
+            <div class="action-buttons">
+                <button type="button" class="btn-action-ge btn-edit-ge" title="Sửa" onclick="openEditPayrollModal(this)"><i class="fas fa-pen"></i></button>
+                <button type="button" class="btn-action-ge btn-delete-ge" title="Xóa" onclick="openDeletePayrollPopup('{{ payroll.ma_luong }}')"><i class="fas fa-trash-alt"></i></button>
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="12">Không có dữ liệu bảng lương.</td>
+        </tr>
         {% endfor %}
-      </div>
-    </div>
+      </tbody>
+    </table>
   </div>
-</div>
 
-<!-- Popup Tính lương -->
-<div id="calc-popup" class="popup-overlay" style="display: none;">
-  <div class="tnh-lng-3 popup-content">
-    <div class="background popup-header">
-      <div class="container"><div class="tnh-lng"><span class="tnhlng_span">Tính lương</span></div></div>
-      <div class="container_01">
-        <button type="button" class="btn-close-popup" id="calc-close-btn"><div class="text-"><span class="fspan">×</span></div></button>
-      </div>
-    </div>
-    <div class="container_02 popup-body">
-      <div class="container_03">
-        <div class="label"><div class="chn-thng"><span class="chnthng_span">Chọn tháng</span></div></div>
-        <select id="calc-month-select" class="options">
-          <option value="">-- Chọn tháng --</option>
-          <option value="2026-01">01/2026</option>
-          <option value="2026-02">02/2026</option>
-          <option value="2026-03">03/2026</option>
+  <!-- KHU VỰC XUẤT DỮ LIỆU (Chỉ hiện ở tab Đã duyệt) -->
+  <div id="export-approved-container" class="export-data-wrapper" style="display: none;">
+    <div class="export-controls">
+        <select id="export-format-select" class="export-dropdown">
+            <option value="pdf">Xuất file PDF</option>
+            <option value="excel">Xuất file Excel</option>
         </select>
-        <span class="error-message" id="error-calc-month"></span>
-      </div>
-      <div class="table employee-table">
-        <div class="header">
-          <div class="row">
-            <div class="cell-check"></div>
-            <div class="cell_01"><div class="m-nv"><span class="mnv_span">Mã NV</span></div></div>
-            <div class="cell_02"><div class="h-tn"><span class="htn_span">Họ tên</span></div></div>
-          </div>
+        <button type="button" class="btn-export-final" onclick="handleExportApproved()">Xuất</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL TÍNH LƯƠNG -->
+<div id="salaryModal" class="salary-modal-overlay">
+  <div class="salary-modal-content">
+    <div class="salary-modal-header">
+      <h3>Tính lương</h3>
+      <button type="button" class="close-modal" onclick="closeSalaryModal()">&#x2715;</button>
+    </div>
+
+    <div class="salary-modal-body">
+      <div class="form-group">
+        <label>Chọn kỳ lương</label>
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+          <select id="salaryMonth" class="salary-input" onchange="handlePeriodChange()" style="margin-bottom: 0;">
+            <option value="">-- Tháng --</option>
+            <option value="01">01</option><option value="02">02</option>
+            <option value="03">03</option><option value="04">04</option>
+            <option value="05">05</option><option value="06">06</option>
+            <option value="07">07</option><option value="08">08</option>
+            <option value="09">09</option><option value="10">10</option>
+            <option value="11">11</option><option value="12">12</option>
+          </select>
+          <select id="salaryYear" class="salary-input" onchange="handlePeriodChange()" style="margin-bottom: 0;">
+            <option value="">-- Năm --</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+          </select>
         </div>
-        <div class="body">
-          <div class="row_01">
-            <div class="data"><input type="checkbox" class="input" checked data-nv="NV001"></div>
-            <div class="data_01"><div class="nv0001"><span class="nv0001_span">NV001</span></div></div>
-            <div class="data_02"><div class="nguyn-vn-an"><span class="nguynvnan_span">Nguyễn Văn An</span></div></div>
-          </div>
-          <div class="row_02">
-            <div class="data_03"><input type="checkbox" class="input_01" checked data-nv="NV002"></div>
-            <div class="data_04"><div class="nv0002"><span class="nv0002_span">NV002</span></div></div>
-            <div class="data_05"><div class="trn-th-bnh"><span class="trnthbnh_span">Trần Thị B</span></div></div>
-          </div>
-          <div class="row_03">
-            <div class="data_06"><input type="checkbox" class="input_02" checked data-nv="NV003"></div>
-            <div class="data_07"><div class="nv0003"><span class="nv0003_span">NV003</span></div></div>
-            <div class="data_08"><div class="l-vn-cang"><span class="lvncang_span">Lê Văn C</span></div></div>
-          </div>
+        <p id="processedWarning" class="warning-text" style="display: none;">⚠️ Kỳ lương này đã được tính.</p>
+      </div>
+
+      <div class="employee-list-section">
+        <table class="salary-employee-table">
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="selectAll" onclick="toggleSelectAll(this)"></th>
+              <th>Mã NV</th>
+              <th>Họ tên</th>
+            </tr>
+          </thead>
+          <tbody id="employeeTableBody">
+            <!-- Dữ liệu sẽ đổ vào đây bằng JS -->
+            <tr>
+              <td colspan="3" style="text-align: center; color: #666; padding: 20px;">Vui lòng chọn kỳ lương để hiển thị
+                danh sách</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="salary-modal-footer">
+      <button type="button" class="btn-cancel-salary" onclick="closeSalaryModal()">Hủy</button>
+      <button type="button" id="btnConfirmCalculate" class="btn-confirm-salary" onclick="processCalculation()" disabled>Tính
+        lương</button>
+    </div>
+  </div>
+</div>
+<!-- TINH LUONG CHO MOT NHAN VIEN -->
+<div id="salaryDetailModal" class="salary-detail-overlay" style="display: none;">
+    <div class="salary-detail-content">
+        <div class="detail-header">
+            <span class="detail-title">Tính lương</span>
+            <span class="detail-sub" id="display-ma-luong">Mã lương: ML032022001</span>
         </div>
-      </div>
-    </div>
-    <div class="container_04 popup-footer">
-      <div class="container_05">
-        <button type="button" class="button" id="calc-cancel-btn"><div class="hy"><span class="hy_span">Hủy</span></div></button>
-        <button type="button" class="button_01" id="calc-confirm-btn"><div class="tnh-lng_01"><span class="tnhlng_01_span">Tính lương</span></div></button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- Popup Chi tiết/Edit lương -->
-<div id="edit-popup" class="popup-overlay" style="display: none;">
-  <div class="tnh-lng-4 popup-content">
-    <div class="frame-2120">
-      <div class="tnh-lng"><span class="tnhlng_span">Chỉnh sửa lương</span></div>
-      <div class="m-lng-ml032022001"><span class="mlngml032022001_span" id="edit-ma-luong">Mã lương: ML0001</span></div>
-    </div>
-    <div class="background summary-row">
-      <div class="container">
-        <div class="m-nv-nv00001---nguyn-vn-an"><span class="mnvnv00001-nguynvnan_span" id="edit-ten-nv">Mã NV: NV001 - Nguyễn Văn An</span></div>
-      </div>
-      <div class="container_01">
-        <div class="thng-032022"><span class="thng032022_span" id="edit-thang">Tháng: 01/2026</span></div>
-      </div>
-    </div>
-    <div class="container_02">
-      <div class="background_01">
-        <div class="label"><div class="lng-c-bn"><span class="lngcbn_span">Lương cơ bản</span></div></div>
-        <div class="input"><input type="text" id="edit-luong-co-ban" readonly class="text-8000000-vn" value="8,000,000 VNĐ"></div>
-      </div>
-      <div class="background_02">
-        <div class="label_01"><div class="lng-theo-gi"><span class="lngtheogi_span">Lương theo giờ</span></div></div>
-        <input type="text" id="edit-luong-gio" readonly class="options" value="50,000 VNĐ">
-      </div>
-      <div class="background_03">
-        <div class="label_02"><div class="s-ca-lm"><span class="scalm_span">Số ca làm</span></div></div>
-        <input type="text" id="edit-so-ca" readonly class="input_01" value="20">
-      </div>
-      <div class="background_04">
-        <div class="label_03"><div class="s-gi-lm"><span class="sgilm_span">Số giờ làm</span></div></div>
-        <input type="text" id="edit-so-gio" readonly class="options_01" value="160">
-      </div>
-      <div class="background_05">
-        <div class="label_04"><div class="thng"><span class="thng_span">Thưởng</span></div></div>
-        <div class="input_02">
-          <input type="number" id="edit-thuong" class="text-2000000-vn" value="500000" min="0">
-          <span class="error-message" id="error-edit-thuong"></span>
+        <div class="detail-info-bar">
+            <span id="display-nv-info">Mã NV: NV00001 - Nguyễn Văn An</span>
+            <span id="display-month-info">Tháng: 03/2022</span>
         </div>
-      </div>
-      <div class="background_06">
-        <div class="label_05"><div class="pht"><span class="pht_span">Phạt</span></div></div>
-        <div class="input_03">
-          <input type="number" id="edit-phat" class="text-100000-vn" value="0" min="0">
-          <span class="error-message" id="error-edit-phat"></span>
+
+        <div class="detail-body">
+            <div class="detail-row">
+                <div class="detail-group">
+                    <label>Lương cơ bản</label>
+                    <input type="text" id="detail-lcb" readonly>
+                </div>
+                <div class="detail-group">
+                    <label>Lương theo giờ</label>
+                    <input type="text" id="detail-ltg" readonly>
+                </div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-group">
+                    <label>Số ca làm</label>
+                    <input type="text" id="detail-scl" readonly>
+                </div>
+                <div class="detail-group">
+                    <label>Số giờ làm</label>
+                    <input type="text" id="detail-sgl" readonly>
+                </div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-group">
+                    <label>Thưởng</label>
+                    <input type="number" id="detail-thuong" value="0" oninput="recalculateTotal()">
+                </div>
+                <div class="detail-group">
+                    <label>Phạt</label>
+                    <input type="number" id="detail-phat" value="0" oninput="recalculateTotal()">
+                </div>
+            </div>
+
+            <div class="total-salary-banner">
+                <p>TỔNG LƯƠNG</p>
+                <h2 id="detail-tong-luong">0 VNĐ</h2>
+            </div>
         </div>
-      </div>
+
+        <div class="detail-footer">
+            <button type="button" class="btn-save-detail" onclick="saveSalaryDetail()">Lưu</button>
+            <button type="button" class="btn-close-detail" onclick="openCancelConfirmPopup()">Hủy</button>
+        </div>
     </div>
-    <div class="background_07 total-box">
-      <div class="container_03"><div class="tng-lng"><span class="tnglng_span">TỔNG LƯƠNG</span></div></div>
-      <div class="strong-18500000-vnd"><span class="strong18500000vnd_span" id="edit-tong-luong">16,500,000 VND</span></div>
-    </div>
-    <div class="container_04">
-      <button type="button" class="button" id="edit-save-btn"><div class="lu"><span class="lu_span">Lưu</span></div></button>
-      <button type="button" class="button_01" id="edit-cancel-btn"><div class="hy"><span class="hy_span">Hủy</span></div></button>
-    </div>
-  </div>
 </div>
 
-<!-- Popup Duyệt -->
-<div id="approve-popup" class="popup-overlay" style="display: none;">
-  <div class="popup-content confirm-popup">
-    <div class="popup-header"><h3>Xác nhận duyệt</h3></div>
-    <div class="popup-body"><p>Bạn có chắc muốn duyệt bảng lương?</p></div>
-    <div class="popup-footer">
-      <button type="button" class="btn-secondary" id="approve-cancel-btn">Hủy</button>
-      <button type="button" class="btn-primary" id="approve-confirm-btn">Đồng ý</button>
+<!-- POPUP XÁC NHẬN XÓA BẢNG LƯƠNG - THEME ĐỎ HỒNG PASTEL -->
+<div class="confirm-popup-overlay" id="confirm-delete-payroll-popup">
+    <div class="confirm-popup-box delete-payroll-theme">
+        <div class="delete-header">
+            Xóa bảng lương
+        </div>
+        <div class="delete-body">
+            <div class="icon-circle-red">
+                <i class="fas fa-times"></i>
+            </div>
+            <p class="main-msg">Bạn có chắc chắn muốn xóa bản ghi này không?</p>
+            <div class="info-display" id="delete-payroll-info"></div>
+        </div>
+        <div class="delete-footer">
+            <button type="button" class="btn-cancel-delete" onclick="closeDeletePayrollPopup()">Hủy</button>
+            <button type="button" class="btn-confirm-delete" id="confirm-delete-payroll-btn" data-payroll-id="" onclick="confirmDeletePayroll()">Xác nhận xóa</button>
+        </div>
     </div>
-  </div>
 </div>
 
-<!-- Popup Xóa -->
-<div id="delete-popup" class="popup-overlay" style="display: none;">
-  <div class="popup-content confirm-popup">
-    <div class="popup-header"><h3>Xác nhận xóa</h3></div>
-    <div class="popup-body"><p>Bạn có chắc muốn xóa bảng lương này không?</p></div>
-    <div class="popup-footer">
-      <button type="button" class="btn-secondary" id="delete-cancel-btn">Không</button>
-      <button type="button" class="btn-danger" id="delete-confirm-btn">Có, xóa</button>
+<!-- POPUP XÁC NHẬN HỦY (KHI CÓ THÔNG TIN CHƯA LƯU) -->
+<div class="confirm-popup-overlay" id="confirm-cancel-payroll-popup">
+    <div class="confirm-popup-box delete-payroll-theme">
+        <div class="delete-header">
+            Xác nhận hủy
+        </div>
+        <div class="delete-body" style="padding: 25px 20px;">
+            <div class="icon-circle-red">
+                <i class="fas fa-exclamation"></i>
+            </div>
+            <p class="main-msg">Bạn có thông tin chưa lưu, Xác nhận hủy?</p>
+        </div>
+        <div class="delete-footer">
+            <button type="button" class="btn-cancel-delete" onclick="closeCancelConfirmPopup()">Không</button>
+            <button type="button" class="btn-confirm-delete" onclick="confirmCancel()">Đồng ý</button>
+        </div>
     </div>
-  </div>
 </div>
 
-<!-- Popup Xuất -->
-<div id="export-popup" class="popup-overlay" style="display: none;">
-  <div class="popup-content">
-    <div class="popup-header">
-      <h3>Xuất bảng lương</h3>
-      <button type="button" class="btn-close" id="export-close-btn">×</button>
-    </div>
-    <div class="popup-body">
-      <div class="export-options">
-        <label class="radio-option">
-          <input type="radio" name="export-format" value="excel" checked>
-          <span>Excel (.xlsx)</span>
-        </label>
-        <label class="radio-option">
-          <input type="radio" name="export-format" value="pdf">
-          <span>PDF (.pdf)</span>
-        </label>
-      </div>
-    </div>
-    <div class="popup-footer">
-      <button type="button" class="btn-secondary" id="export-cancel-btn">Hủy</button>
-      <button type="button" class="btn-primary" id="export-confirm-btn">Xuất</button>
-    </div>
-  </div>
-</div>
-
-<!-- Toast Message -->
-<div id="toast" class="toast" style="display: none;">
-  <span id="toast-text"></span>
-</div>
-{% endblock %}
-
-{% block extra_js %}
-    <script src="{% static 'payroll/js/payroll_list.js' %}"></script>
+<script src="{% static 'payroll/js/payroll_list.js' %}"></script>
 {% endblock %}

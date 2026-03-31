@@ -14,6 +14,7 @@ def _payroll_rows():
             'thuong': '500,000',
             'phat': '0',
             'thuc_linh': '16,500,000',
+            'branch_id': 1,
             'trang_thai': 'Chờ duyệt',
             'trang_thai_key': 'cho-duyet',
         },
@@ -28,6 +29,7 @@ def _payroll_rows():
             'thuong': '300,000',
             'phat': '100,000',
             'thuc_linh': '14,450,000',
+            'branch_id': 2,
             'trang_thai': 'Chờ duyệt',
             'trang_thai_key': 'cho-duyet',
         },
@@ -42,6 +44,7 @@ def _payroll_rows():
             'thuong': '800,000',
             'phat': '0',
             'thuc_linh': '19,150,000',
+            'branch_id': 1,
             'trang_thai': 'Đã duyệt',
             'trang_thai_key': 'da-duyet',
         },
@@ -56,6 +59,7 @@ def _payroll_rows():
             'thuong': '200,000',
             'phat': '50,000',
             'thuc_linh': '13,450,000',
+            'branch_id': 3,
             'trang_thai': 'Chờ duyệt',
             'trang_thai_key': 'cho-duyet',
         },
@@ -70,6 +74,7 @@ def _payroll_rows():
             'thuong': '600,000',
             'phat': '0',
             'thuc_linh': '17,680,000',
+            'branch_id': 2,
             'trang_thai': 'Đã duyệt',
             'trang_thai_key': 'da-duyet',
         },
@@ -86,13 +91,52 @@ def _employees():
     ]
 
 
+def _branches():
+    return [
+        {'id': 1, 'ten_chi_nhanh': 'Chi nhánh Quận 1'},
+        {'id': 2, 'ten_chi_nhanh': 'Chi nhánh Quận 3'},
+        {'id': 3, 'ten_chi_nhanh': 'Chi nhánh Thủ Đức'},
+    ]
+
+
 def payroll_list_view(request):
+    payroll_rows = _payroll_rows()
+    
+    branches = _branches()
+    branch_id = request.GET.get('branch')
+    month = request.GET.get('month')
+    year = request.GET.get('year')
+
+    # Nếu không có branch_id trong URL, mặc định lấy cái đầu tiên
+    if not branch_id and branches:
+        branch_id = str(branches[0]['id'])
+
+    # 1. Lọc theo chi nhánh
+    if branch_id:
+        payroll_rows = [row for row in payroll_rows if str(row.get('branch_id')) == branch_id]
+
+    # 2. Lọc theo Kỳ lương (Tháng và Năm)
+    if month and year:
+        # Định dạng trong dữ liệu mẫu là "MM/YYYY" (ví dụ: "01/2026")
+        selected_period = f"{month}/{year}"
+        payroll_rows = [row for row in payroll_rows if row.get('thang') == selected_period]
+
+    # Lọc theo từ khóa tìm kiếm
+    search_q = request.GET.get('q')
+    if search_q:
+        search_q = search_q.lower()
+        payroll_rows = [
+            row for row in payroll_rows 
+            if search_q in row['ten_nv'].lower() or search_q in row['ma_nv'].lower()
+        ]
+
     return render(
         request,
         'payroll/payroll_list.html',
         {
-            'payroll_rows': _payroll_rows(),
+            'payroll_rows': payroll_rows,
             'employees': _employees(),
+            'branches': _branches(),
         },
     )
 
