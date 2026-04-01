@@ -8,7 +8,7 @@ from django.views.decorators.http import require_http_methods
 from django import forms
 from django.utils import timezone
 from django.core.exceptions import ValidationError
-from .models import LichLamViec, LichLamViec_CT
+from .models import LichLamViec
 from apps.employees.models import NhanVien
 import datetime
 

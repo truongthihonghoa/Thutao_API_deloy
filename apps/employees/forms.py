@@ -1,7 +1,5 @@
 from django import forms
-
 from .models import NhanVien
-
 
 class EmployeeBaseForm(forms.ModelForm):
     class Meta:
@@ -15,7 +13,6 @@ class EmployeeBaseForm(forms.ModelForm):
             "sdt",
             "tk_ngan_hang",
             "chuc_vu",
-            "vi_tri_vl",
             "ma_chi_nhanh",
             "dia_chi",
         ]
@@ -50,6 +47,7 @@ class EmployeeCreateForm(EmployeeBaseForm):
 
 class EmployeeUpdateForm(EmployeeBaseForm):
     class Meta(EmployeeBaseForm.Meta):
+        # HOA CHÚ Ý: Xóa "vi_tri_vl" ở danh sách dưới đây
         fields = [
             "ho_ten",
             "gioi_tinh",
@@ -58,7 +56,6 @@ class EmployeeUpdateForm(EmployeeBaseForm):
             "sdt",
             "tk_ngan_hang",
             "chuc_vu",
-            "vi_tri_vl",
             "ma_chi_nhanh",
             "dia_chi",
         ]

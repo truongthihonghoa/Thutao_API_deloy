@@ -608,41 +608,41 @@
         grid-template-columns: 1fr;
         gap: 12px;
     }
-    
+
     .search-box {
         flex-direction: column;
     }
-    
+
     .search-box input {
         width: 100%;
     }
-    
+
     .btn-search,
     .btn-primary {
         width: 100%;
     }
-    
+
     .branch-table {
         font-size: 16px;
     }
-    
+
     .branch-table th,
     .branch-table td {
         padding: 12px 8px;
     }
-    
+
     .branch-actions {
         flex-direction: column;
         gap: 4px;
     }
-    
+
     .btn-view,
     .btn-edit,
     .btn-delete {
         width: 32px;
         height: 32px;
     }
-    
+
     .btn-view img,
     .btn-edit img,
     .btn-delete img {
@@ -653,25 +653,158 @@
     .branch-delete-mark {
         font-size: 22px;
     }
-    
+
     .branch-modal {
         width: 95%;
         margin: 20px;
     }
-    
+
     .branch-modal-header,
     .branch-modal-body,
     .branch-modal-footer {
         padding: 16px 20px;
     }
-    
+
     .info-row {
         flex-direction: column;
         align-items: flex-start;
         gap: 4px;
     }
-    
+
     .info-row label {
         min-width: auto;
     }
 }
+/* Màu cho hàng trong bảng */
+        .branch-table tr.branch-inactive {
+            background-color: #f8d7da !important;
+            color: #721c24;
+        }
+
+        /* Căn chỉnh cột Hành động */
+        .branch-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px; /* Khoảng cách giữa các vòng tròn */
+            padding: 10px !important;
+        }
+
+        /* Icon Action Buttons */
+        .btn-action {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #e0e0e0;
+            background-color: #ffffff !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-decoration: none;
+        }
+
+        .btn-action:hover {
+            background-color: #f5f5f5 !important;
+            border-color: #bdbdbd;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        }
+
+        .btn-action i {
+            font-size: 18px;
+        }
+
+        /* Search Icon - Color: Màu xanh */
+        .btn-search-icon i {
+            color: #174d17;
+        }
+
+        .btn-search-icon:hover i {
+            color: #27682b;
+        }
+
+        /* Edit Icon - Color: Màu đen */
+        .btn-edit-icon i {
+            color: #000000;
+        }
+
+        .btn-edit-icon:hover i {
+            color: #333333;
+        }
+
+        /* Delete Icon - Color: Màu đỏ */
+        .btn-delete-icon i {
+            color: #dc3545;
+        }
+
+        .btn-delete-icon:hover {
+            background-color: #ffe0e0 !important;
+            border-color: #dc3545;
+        }
+
+        .btn-delete-icon:hover i {
+            color: #c82333;
+        }
+
+        .branch-actions button {
+            width: 34px; /* Kích thước vòng tròn */
+            height: 34px;
+            border-radius: 50%; /* Bo tròn hoàn toàn */
+            border: 1px solid #e0e0e0; /* Viền xám nhạt */
+            background-color: #ffffff !important; /* Nền trắng như yêu cầu */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .branch-actions button:hover {
+            background-color: #f5f5f5 !important; /* Xám cực nhạt khi hover */
+            border-color: #bdbdbd;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        }
+
+        .branch-actions img {
+            width: 18px; /* Kích thước icon bên trong */
+            height: 18px;
+            object-fit: contain;
+        }
+
+        /* Style cho select trạng thái */
+        #edit-branch-status {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            outline: none;
+        }
+
+        .status-select-active {
+            background-color: #d4edda !important;
+            color: #155724 !important;
+            border-color: #c3e6cb !important;
+        }
+
+        .status-select-inactive {
+            background-color: #f8d7da !important;
+            color: #721c24 !important;
+            border-color: #f5c6cb !important;
+        }
+
+        select#edit-branch-status option {
+            background-color: white;
+            color: #333;
+            font-weight: normal;
+        }
+
+        select#edit-branch-status option.status-active { color: #155724; background-color: #d4edda; }
+        select#edit-branch-status option.status-inactive { color: #721c24; background-color: #f8d7da; }

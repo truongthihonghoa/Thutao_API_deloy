@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 class HopDongLaoDong(models.Model):
 
     # ===== CHOICES =====
@@ -35,7 +35,9 @@ class HopDongLaoDong(models.Model):
     ma_chi_nhanh = models.ForeignKey(
         'branches.ChiNhanh',
         on_delete=models.CASCADE,
-        related_name='hop_dong'
+        related_name='hop_dong',
+        null=True,
+        blank=True,
     )
 
     loai_hd = models.CharField(
@@ -56,8 +58,7 @@ class HopDongLaoDong(models.Model):
         choices=TRANG_THAI_CHOICES,
         default='CON_HAN'
     )
-
-    created_at = models.DateTimeField(auto_now_add=True)
+    # created_at = models.DateTimeField(default=timezone.now, null=True, blank=True)
 
     def __str__(self):
         return f"{self.ma_hd} - {self.ma_nv}"
@@ -76,7 +77,6 @@ class HopDongLD_CT(models.Model):
     so_gio_lam = models.FloatField()
 
     che_do_thuong = models.FloatField(default=0)
-
     dieu_khoan = models.TextField(blank=True, null=True)
     trach_nhiem = models.TextField(blank=True, null=True)
     ghi_chu = models.TextField(blank=True, null=True)

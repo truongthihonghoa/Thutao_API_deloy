@@ -8,14 +8,6 @@ class NhanVien(models.Model):
         ("Khác", "Khác"),
     ]
 
-    VI_TRI_CHOICES = [
-        ("Thu ngân", "Thu ngân"),
-        ("Phục vụ", "Phục vụ"),
-        ("Quản lý", "Quản lý"),
-        ("Giữ xe", "Giữ xe"),
-        ("Pha chế", "Pha chế"),
-    ]
-
     CHUC_VU_CHOICES = [
         ("Thu ngân", "Thu ngân"),
         ("Phục vụ", "Phục vụ"),
@@ -35,7 +27,6 @@ class NhanVien(models.Model):
         verbose_name="Số điện thoại",
     )
     chuc_vu = models.CharField(max_length=50, choices=CHUC_VU_CHOICES, verbose_name="Chức vụ")
-    vi_tri_vl = models.CharField(max_length=50, choices=VI_TRI_CHOICES, verbose_name="Vị trí việc làm")
     dia_chi = models.CharField(max_length=255, null=True, blank=True, verbose_name="Địa chỉ")
     gioi_tinh = models.CharField(
         max_length=10,

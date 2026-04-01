@@ -9,14 +9,14 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('branches', '0001_initial'),
+        ('attendances', '0001_initial'),
         ('employees', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='chinhanh',
-            name='ma_nv_ql',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='employees.nhanvien'),
+            model_name='chamcong',
+            name='ma_nv',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='cham_cong', to='employees.nhanvien'),
         ),
     ]
