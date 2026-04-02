@@ -40,7 +40,8 @@ def branch_create(request):
         form = ChiNhanhForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('branch_list')
+            messages.success(request, "Đã thêm chi nhánh mới thành công")
+            return redirect('branches:branch_list')
     else:
         form = ChiNhanhForm()
 
@@ -58,7 +59,8 @@ def branch_update(request, pk):
         form = ChiNhanhForm(request.POST, instance=branch)
         if form.is_valid():
             form.save()
-            return redirect('branch_list')
+            messages.success(request, "Cập nhât chi nhánh mới thành công")
+            return redirect('branches:branch_list')
     else:
         form = ChiNhanhForm(instance=branch)
 
@@ -73,29 +75,53 @@ def branch_delete(request, pk):
     branch = get_object_or_404(ChiNhanh, pk=pk)
     branch.trang_thai = 'inactive'
     branch.save()
-    return redirect('branch_list')
+    return redirect('branches:branch_list')
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import ChiNhanh # Giả sử tên model của bạn
 
-def add_branch(request):
-    if request.method == "POST":
-        ten = request.POST.get('ten_chi_nhanh')
-        dia_chi = request.POST.get('dia_chi')
-        sdt = request.POST.get('sdt')
-        ma_nv_ql = request.POST.get('ma_nv_ql')
 
-        # Lưu vào CSDL
-        ChiNhanh.objects.create(
-            ten_chi_nhanh=ten,
-            dia_chi=dia_chi,
-            sdt=sdt,
-            ma_nv_ql_id=ma_nv_ql
-        )
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework import status
+from .models import ChiNhanh
+from .serializers import ChiNhanhSerializer
 
-        # Gửi thông báo thành công
-        messages.success(request, "Đã thêm chi nhánh mới thành công")
-        return redirect('branch_list')
+class ChiNhanhViewSet(ModelViewSet):
+    queryset = ChiNhanh.objects.all()
+    serializer_class = ChiNhanhSerializer
+    permission_classes = [IsAuthenticated]
 
-    return render(request, 'branches/branch_form.html')
+    # 👇 Xem dữ liệu
+    def get_queryset(self):
+        user = self.request.user
+
+        # admin → thấy tất cả
+        if user.is_staff:
+            return ChiNhanh.objects.all()
+
+        # nhân viên → chỉ thấy chi nhánh mình
+        if hasattr(user, 'nhanvien'):
+            return ChiNhanh.objects.filter(ma_nv_ql=user.nhanvien)
+
+        return ChiNhanh.objects.none()
+
+    # 👇 thêm
+    def create(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return Response({"error": "Không có quyền"}, status=403)
+        return super().create(request, *args, **kwargs)
+
+    # 👇 sửa
+    def update(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return Response({"error": "Không có quyền"}, status=403)
+        return super().update(request, *args, **kwargs)
+
+    # 👇 xoá
+    def destroy(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return Response({"error": "Không có quyền"}, status=403)
+        return super().destroy(request, *args, **kwargs)

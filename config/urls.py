@@ -13,4 +13,5 @@ urlpatterns = [
     path('requests/', include('apps.requests.urls')),
     path('schedules/', include('apps.schedules.urls')),
     path('reports/', include('apps.reports.urls')),
+    path('api/', include('apps.branches.urls')),
 ]
