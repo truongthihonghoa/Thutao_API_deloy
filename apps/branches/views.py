@@ -99,14 +99,14 @@ class ChiNhanhViewSet(ModelViewSet):
         user = self.request.user
 
         # admin → thấy tất cả
-        # if user.is_staff:
-        return ChiNhanh.objects.all()
+        if user.is_staff:
+            return ChiNhanh.objects.all()
 
         # nhân viên → chỉ thấy chi nhánh mình
-        # if hasattr(user, 'nhanvien'):
-        #     return ChiNhanh.objects.filter(ma_nv_ql=user.nhanvien)
-        #
-        # return ChiNhanh.objects.none()
+        if hasattr(user, 'nhanvien'):
+            return ChiNhanh.objects.filter(ma_nv_ql=user.nhanvien)
+
+        return ChiNhanh.objects.none()
 
     # 👇 thêm
     def create(self, request, *args, **kwargs):
