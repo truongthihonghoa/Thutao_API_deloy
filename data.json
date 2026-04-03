@@ -684,7 +684,7 @@
       "first_name": "Nguyễn Thúy Na",
       "last_name": "Lê",
       "email": "nale@gmail.com",
-      "is_staff": null,
+      "is_staff": false,
       "is_active": true,
       "date_joined": null,
       "groups": [
@@ -704,7 +704,7 @@
       "first_name": "Thanh Tài",
       "last_name": "Nguyễn",
       "email": "nguyenthanhtai@gmail.com",
-      "is_staff": null,
+      "is_staff": false,
       "is_active": true,
       "date_joined": null,
       "groups": [
@@ -742,7 +742,7 @@
       "first_name": "Tâm Lê",
       "last_name": "Nguyễn",
       "email": "tamkute@gmail.com",
-      "is_staff": null,
+      "is_staff": false,
       "is_active": true,
       "date_joined": null,
       "groups": [],
